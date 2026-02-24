@@ -6,8 +6,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 2",
-    "prepare": "husky"
+    "test": "vitest",
+    "prepare": "husky",
+    "test:watch": "vitest --watch"
   },
   "dependencies": {
     "polyapi": "^0.25.26",
@@ -15,7 +16,8 @@
     "typescript": "^5.5.4"
   },
   "devDependencies": {
-    "husky": "^9.1.6"
+    "husky": "^9.1.6",
+    "vitest": "^4.0.18"
   },
   "directories": {
     "example": "examples"
