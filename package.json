@@ -1,0 +1,33 @@
+{
+  "name": "poly-glide-template",
+  "description": "This is a template project to demonstrate how to integrate with PolyAPI in a git-centric typescript workflow.",
+  "author": "",
+  "license": "MIT",
+  "version": "0.0.1",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 2",
+    "prepare": "husky"
+  },
+  "dependencies": {
+    "polyapi": "^0.25.26",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.4"
+  },
+  "devDependencies": {
+    "husky": "^9.1.6"
+  },
+  "directories": {
+    "example": "examples"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/polyapi/poly-glide-template-js.git"
+  },
+  "keywords": [],
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/polyapi/poly-glide-template-js/issues"
+  },
+  "homepage": "https://github.com/polyapi/poly-glide-template-js#readme"
+}
