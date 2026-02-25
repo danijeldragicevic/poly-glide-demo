@@ -43,24 +43,26 @@ export async function getWeatherData(latitude: number, longitude: number): Promi
     try {
         const responses = await fetchWeatherApi(url, params, retries);
         const response = responses[0];
+        const hourly = response.hourly();
 
-        console.log("Weather API Response:", {
-            latitude: response.latitude(),
-            longitude: response.longitude(),
-            data: response.hourly()
-        });
+        if (!hourly) {
+            throw new Error("Hourly data is missing in the API response");
+        }
+
+        const temperature = hourly.variables(0)?.valuesArray() ?? [];
+        const humidity = hourly.variables(1)?.valuesArray() ?? [];
+        const rain = hourly.variables(2)?.valuesArray() ?? [];
 
         return {
             latitude: response.latitude(),
             longitude: response.longitude(),
             data: {
-                temperature: [1, 2, 3],
-                humidity: [4, 5, 6],
-                rain: [7, 8, 9]
+                temperature: Array.from(temperature),
+                humidity: Array.from(humidity),
+                rain: Array.from(rain)
             }
         }
     } catch (error) {
         console.error("Error fetching weather data:", error);
-        throw new Error("Failed to fetch weather data");
     }
 } 
