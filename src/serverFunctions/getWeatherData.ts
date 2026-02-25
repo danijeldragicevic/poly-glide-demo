@@ -55,7 +55,9 @@ export async function getWeatherData(latitude: number, longitude: number): Promi
 
         console.log(
             `Fetched weather data for latitude: ${latitude}, longitude: ${longitude}`,
-            `Temperature: ${temperature.length} values, Humidity: ${humidity.length} values, Rain: ${rain.length} values`
+            `Temperature: ${Array.from(temperature)}`,
+            `Humidity: ${Array.from(humidity)}`,
+            `Rain: ${Array.from(rain)}`
         );
 
         return {
