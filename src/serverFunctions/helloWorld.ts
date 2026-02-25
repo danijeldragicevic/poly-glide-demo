@@ -6,7 +6,7 @@ export const polyConfig: PolyServerFunction = {
   name: "helloWorld",
   description: "Return a friendly greeting.",
   visibility: "PUBLIC",
-};
+}
 
 /**
  * Return a friendly greeting.

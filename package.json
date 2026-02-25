@@ -11,6 +11,7 @@
     "test:watch": "vitest --watch"
   },
   "dependencies": {
+    "openmeteo": "^1.2.3",
     "polyapi": "^0.25.26",
     "ts-node": "^10.9.2",
     "typescript": "^5.5.4"
