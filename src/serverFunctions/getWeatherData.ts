@@ -8,7 +8,7 @@ export const polyConfig: PolyServerFunction = {
     description: "Fetch weather data from Open-Meteo API.",
     visibility: "TENANT",
     logsEnabled: true,
-    serverSideAsync: true
+    serverSideAsync: false
 }
 
 export type WeatherData = {
@@ -53,12 +53,13 @@ export async function getWeatherData(latitude: number, longitude: number): Promi
         const humidity = hourly.variables(1)?.valuesArray() ?? [];
         const rain = hourly.variables(2)?.valuesArray() ?? [];
 
-        console.log(
-            `Fetched weather data for latitude: ${latitude}, longitude: ${longitude}`,
-            `Temperature: ${Array.from(temperature)}`,
-            `Humidity: ${Array.from(humidity)}`,
-            `Rain: ${Array.from(rain)}`
-        );
+        // TODO - Remove after testing
+        // console.log(
+        //     `Fetched weather data for latitude: ${latitude}, longitude: ${longitude}`,
+        //     `Temperature: ${Array.from(temperature)}`,
+        //     `Humidity: ${Array.from(humidity)}`,
+        //     `Rain: ${Array.from(rain)}`
+        // );
 
         return {
             latitude: response.latitude(),
@@ -73,5 +74,6 @@ export async function getWeatherData(latitude: number, longitude: number): Promi
 
     } catch (error) {
         console.error("Error fetching weather data:", error);
+        throw error;
     }
 } 
