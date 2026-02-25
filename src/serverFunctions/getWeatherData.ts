@@ -58,19 +58,14 @@ export async function getWeatherData(
   const retries = 3;
 
   try {
-    const responses = await fetchWeatherApi(url, params, retries);
-    if (!responses || responses.length === 0) {
-      throw new Error("Open-Meteo API returned an empty response.");
-    }
-
-    const response = responses[0];
+    const response = (await fetchWeatherApi(url, params, retries))[0];
     if (!response) {
       throw new Error("Open-Meteo API response is missing.");
     }
 
     const hourly = response.hourly();
     if (!hourly) {
-      throw new Error("Hourly data is missing in the API response");
+      throw new Error("Hourly data is missing in the API response.");
     }
 
     const temperature = hourly.variables(TEMPERATURE_INDEX)?.valuesArray() ?? [];
