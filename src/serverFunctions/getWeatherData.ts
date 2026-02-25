@@ -53,6 +53,11 @@ export async function getWeatherData(latitude: number, longitude: number): Promi
         const humidity = hourly.variables(1)?.valuesArray() ?? [];
         const rain = hourly.variables(2)?.valuesArray() ?? [];
 
+        console.log(
+            `Fetched weather data for latitude: ${latitude}, longitude: ${longitude}`,
+            `Temperature: ${temperature.length} values, Humidity: ${humidity.length} values, Rain: ${rain.length} values`
+        );
+
         return {
             latitude: response.latitude(),
             longitude: response.longitude(),
@@ -62,6 +67,8 @@ export async function getWeatherData(latitude: number, longitude: number): Promi
                 rain: Array.from(rain)
             }
         }
+
+
     } catch (error) {
         console.error("Error fetching weather data:", error);
     }
