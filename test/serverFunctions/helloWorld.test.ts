@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { helloWorld } from './helloWorld';
+import { helloWorld } from '../../src/serverFunctions/helloWorld';
 
 describe('hello world test', () => {
     it('should return a string', () => {
