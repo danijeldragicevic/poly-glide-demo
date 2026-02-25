@@ -1,4 +1,4 @@
-// Poly deployed @ 2026-02-25T11:19:46.837Z - demo.getWeatherData - https://na1.polyapi.io/canopy/polyui/collections/server-functions/60fb7849-6da5-4fa2-aaeb-f790e76b6e8f - 01f7dfcf
+// Poly deployed @ 2026-02-25T12:13:33.788Z - demo.getWeatherData - https://na1.polyapi.io/canopy/polyui/collections/server-functions/60fb7849-6da5-4fa2-aaeb-f790e76b6e8f - 01f7dfcf
 import { PolyServerFunction } from "polyapi";
 import { fetchWeatherApi } from "openmeteo";
 
