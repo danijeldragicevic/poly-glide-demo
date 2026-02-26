@@ -25,5 +25,5 @@ describe("getWeatherData (integration test)", () => {
     expect(result.data).toHaveProperty("humidity");
     expect(result.data).toHaveProperty("rain");
   },
-  20_000); // Set a timeout of 20 seconds
+  20_000); // Timeout of 20 seconds
 });

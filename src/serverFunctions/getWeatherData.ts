@@ -31,7 +31,7 @@ export type WeatherData = {
  * Fetch weather data from Open-Meteo API.
  * @param {number} latitude - Latitude of the location.
  * @param {number} longitude - Longitude of the location.
- * @returns {Promise<WeatherData>} Weather data response.
+ * @returns {Promise<WeatherData>} Weather data for the period of 1 day.
  * @throws Will throw an error if the API call fails.
  *
  */
