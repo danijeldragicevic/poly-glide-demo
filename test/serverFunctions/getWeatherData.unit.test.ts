@@ -2,6 +2,16 @@ import { describe, it, expect, vi } from "vitest";
 import { fetchWeatherApi } from "openmeteo";
 import { getWeatherData } from "../../src/serverFunctions/getWeatherData";
 
+vi.mock("polyapi", () => ({
+  vari: {
+    demo: {
+      OPEN_METEO_BASE_URL: {
+        get: vi.fn().mockResolvedValue("https://api.open-meteo.com/v1/forecast"),
+      },
+    },
+  },
+}));
+
 vi.mock("openmeteo", () => ({
   fetchWeatherApi: vi.fn(),
 }));
