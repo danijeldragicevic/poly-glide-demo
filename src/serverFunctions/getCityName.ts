@@ -1,3 +1,4 @@
+// Poly deployed @ 2026-02-26T13:30:20.337Z - demo.getCityName - https://na1.polyapi.io/canopy/polyui/collections/server-functions/a506681a-de0c-42ce-8aa1-bcc7e4458c71 - e7a6abcf
 import { PolyServerFunction } from "polyapi";
 
 export const polyConfig: PolyServerFunction = {
