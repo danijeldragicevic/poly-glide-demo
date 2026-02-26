@@ -82,6 +82,6 @@ export async function getWeatherData(latitude: number, longitude: number): Promi
     };
   } catch (error) {
     console.error("Error fetching weather data:", error);
-    throw error;
+    throw new Error("Failed to fetch weather data from Open-Meteo API.");
   }
 }

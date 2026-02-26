@@ -33,14 +33,33 @@ export async function getCityName(latitude: number, longitude: number): Promise<
     throw new Error("Invalid longitude. Expected a number between -180 and 180.");
   }
 
-  console.log(`Fetching city name for coordinates: (${latitude}, ${longitude})`);
+  const params = new URLSearchParams({
+    latitude: latitude.toString(),
+    longitude: longitude.toString(),
+    localityLanguage: "en",
+  });
 
-  // Mock implementation for demonstration purposes
-  // TODO add real API call here...
-  return {
-    latitude,
-    longitude,
-    city: "Sample City",
-    countryName: "Sample Country",
-  };
+  const url = "https://api.bigdatacloud.net/data/reverse-geocode-client";
+
+  try {
+    const resposne = await fetch(`${url}?${params.toString()}`);
+    if (!resposne.ok) {
+      throw new Error(`BigDataCloud API error: ${resposne.status} ${resposne.statusText}`);
+    }
+
+    const data = await resposne.json();
+
+    console.log("Successfully fetched city data from BigDataCloud API.");
+
+    return {
+      latitude,
+      longitude,
+      city: data.city || "Unknown",
+      countryName: data.countryName || "Unknown",
+    };
+    
+  } catch (error) {
+    console.error("Error fetching city data:", error);
+    throw new Error("Failed to fetch city data. Please try again later.");
+  }
 }
