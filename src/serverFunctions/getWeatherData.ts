@@ -72,6 +72,8 @@ export async function getWeatherData(
     const humidity = hourly.variables(HUMIDITY_INDEX)?.valuesArray() ?? [];
     const rain = hourly.variables(RAIN_INDEX)?.valuesArray() ?? [];
 
+    console.log("Successfully fetched weather data from Open-Meteo API.");
+
     return {
       latitude: response.latitude(),
       longitude: response.longitude(),

@@ -6,9 +6,8 @@ vi.mock("openmeteo", () => ({
   fetchWeatherApi: vi.fn(),
 }));
 
-describe("getWeatherData (unit)", () => {
+describe("getWeatherData (unit tests)", () => {
   it("should fetch and map weather data correctly", async () => {
-    // Define mock response data
     const mockData = {
       latitude: () => 40.7128,
       longitude: () => -74.006,
@@ -24,13 +23,13 @@ describe("getWeatherData (unit)", () => {
       }),
     };
 
-    // Mock the fetchWeatherApi to return the mock data
+    // Mock the call to the Open-Meteo API
     vi.mocked(fetchWeatherApi).mockResolvedValue([mockData] as any);
 
     // Call the function with valid latitude and longitude
     const result = await getWeatherData(40.7128, -74.006);
 
-    // Assert that the result matches the expected structure and values
+    // Assert response
     expect(result.latitude).toBe(40.7128);
     expect(result.longitude).toBe(-74.006);
     expect(result.data.temperature).toEqual([12.3, 13.1]);
