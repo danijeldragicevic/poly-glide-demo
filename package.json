@@ -11,14 +11,12 @@
     "test:watch": "vitest --watch"
   },
   "dependencies": {
-    "http-errors": "^2.0.1",
     "openmeteo": "^1.2.3",
     "polyapi": "^0.25.26",
     "ts-node": "^10.9.2",
     "typescript": "^5.5.4"
   },
   "devDependencies": {
-    "@types/http-errors": "^2.0.5",
     "husky": "^9.1.6",
     "vitest": "^4.0.18"
   },

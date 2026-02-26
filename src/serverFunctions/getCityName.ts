@@ -1,6 +1,5 @@
 // Poly deployed @ 2026-02-26T15:02:29.945Z - demo.getCityName - https://na1.polyapi.io/canopy/polyui/collections/server-functions/a506681a-de0c-42ce-8aa1-bcc7e4458c71 - e7a6abcf
 import { PolyServerFunction } from "polyapi";
-import createError from "http-errors";
 
 export const polyConfig: PolyServerFunction = {
   context: "demo",
@@ -27,11 +26,11 @@ export type CityData = {
  */
 export async function getCityName(latitude: number, longitude: number): Promise<CityData> {
   if (!Number.isFinite(latitude) || latitude < -90 || latitude > 90) {
-    throw createError(400, "Invalid latitude. Expected a number between -90 and 90.");
+    throw new Error("Invalid latitude. Expected a number between -90 and 90.");
   }
 
   if (!Number.isFinite(longitude) || longitude < -180 || longitude > 180) {
-    throw createError(400, "Invalid longitude. Expected a number between -180 and 180.");
+    throw new Error("Invalid longitude. Expected a number between -180 and 180.");
   }
 
   const params = new URLSearchParams({
@@ -45,7 +44,7 @@ export async function getCityName(latitude: number, longitude: number): Promise<
   try {
     const resposne = await fetch(`${url}?${params.toString()}`);
     if (!resposne.ok) {
-      throw createError(resposne.status, `BigDataCloud API error: ${resposne.status} ${resposne.statusText}`);
+      throw new Error(`BigDataCloud API error: ${resposne.status} ${resposne.statusText}`);
     }
 
     const data = await resposne.json();
@@ -61,6 +60,6 @@ export async function getCityName(latitude: number, longitude: number): Promise<
     
   } catch (error) {
     console.error("Error fetching city data:", error);
-    throw createError(500, "Internal Server Error");
+    throw error;
   }
 }
