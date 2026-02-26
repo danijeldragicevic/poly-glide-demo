@@ -60,6 +60,6 @@ export async function getCityName(latitude: number, longitude: number): Promise<
     
   } catch (error) {
     console.error("Error fetching city data:", error);
-    throw new Error("Failed to fetch city data. Please try again later.");
+    throw error;
   }
 }
