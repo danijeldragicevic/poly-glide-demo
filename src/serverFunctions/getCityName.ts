@@ -33,6 +33,8 @@ export async function getCityName(latitude: number, longitude: number): Promise<
     throw new Error("Invalid longitude. Expected a number between -180 and 180.");
   }
 
+  console.log(`Fetching city name for coordinates: (${latitude}, ${longitude})`);
+
   // Mock implementation for demonstration purposes
   // TODO add real API call here...
   return {
