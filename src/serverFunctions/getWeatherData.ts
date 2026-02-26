@@ -1,5 +1,5 @@
 // Poly deployed @ 2026-02-26T07:39:38.709Z - demo.getWeatherData - https://na1.polyapi.io/canopy/polyui/collections/server-functions/60fb7849-6da5-4fa2-aaeb-f790e76b6e8f - 01f7dfcf
-import { PolyServerFunction } from "polyapi";
+import { PolyServerFunction, vari } from "polyapi";
 import { fetchWeatherApi } from "openmeteo";
 
 const TEMPERATURE_INDEX = 0;
@@ -54,7 +54,7 @@ export async function getWeatherData(
     forecast_days: 1,
   };
 
-  const url = "https://api.open-meteo.com/v1/forecast";
+  const url = await vari.demo.OPEN_METEO_BASE_URL.get();
   const retries = 3;
 
   try {
