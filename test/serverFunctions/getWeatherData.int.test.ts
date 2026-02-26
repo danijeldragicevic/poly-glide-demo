@@ -5,7 +5,7 @@ vi.mock("polyapi", () => ({
   vari: {
     demo: {
       OPEN_METEO_BASE_URL: {
-        get: vi.fn().mockResolvedValue("https://api.open-meteo.com/v1/forecast"),
+        get: vi.fn().mockResolvedValue("https://api.open-meteo.com/v1/forecast"), // Need to use real API URL for integration test
       },
     },
   },

@@ -35,10 +35,7 @@ export type WeatherData = {
  * @throws Will throw an error if the API call fails.
  *
  */
-export async function getWeatherData(
-  latitude: number,
-  longitude: number,
-): Promise<WeatherData> {
+export async function getWeatherData(latitude: number, longitude: number): Promise<WeatherData> {
   if (!Number.isFinite(latitude) || latitude < -90 || latitude > 90) {
     throw new Error("Invalid latitude. Expected a number between -90 and 90.");
   }
