@@ -67,16 +67,19 @@ describe("getWeatherData (unit tests)", () => {
   });
 
   it("should throw an error if API returns empty response", async () => {
+    const consoleErrorSpy = vi.spyOn(console, "error").mockImplementation(() => undefined);
     vi.mocked(fetchWeatherApi).mockResolvedValue([] as any);
     await expect(getWeatherData(40.7128, -74.006)).rejects.toMatchObject({
       name: "ApiError",
       status: 500,
       statusText: "Internal Server Error",
-      message: "An error occurred while fetching weather data.",
+      message: "Open-Meteo API response is missing.",
     });
+    consoleErrorSpy.mockRestore();
   });
 
   it("should throw an error if hourly data is missing in API response", async () => {
+    const consoleErrorSpy = vi.spyOn(console, "error").mockImplementation(() => undefined);
     const mockData = {
       latitude: () => 40.7128,
       longitude: () => -74.006,
@@ -89,7 +92,8 @@ describe("getWeatherData (unit tests)", () => {
       name: "ApiError",
       status: 500,
       statusText: "Internal Server Error",
-      message: "An error occurred while fetching weather data.",
+      message: "Hourly data is missing in the API response.",
     });
+    consoleErrorSpy.mockRestore();
   });
 });

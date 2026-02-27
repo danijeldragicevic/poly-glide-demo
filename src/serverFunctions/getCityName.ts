@@ -1,5 +1,6 @@
-// Poly deployed @ 2026-02-27T14:34:43.377Z - demo.getCityName - https://na1.polyapi.io/canopy/polyui/collections/server-functions/a506681a-de0c-42ce-8aa1-bcc7e4458c71 - e7a6abcf
-import { PolyServerFunction } from "polyapi";
+// Poly deployed @ 2026-02-26T15:21:26.417Z - demo.getCityName - https://na1.polyapi.io/canopy/polyui/collections/server-functions/a506681a-de0c-42ce-8aa1-bcc7e4458c71 - e7a6abcf
+import { PolyServerFunction, vari } from "polyapi";
+import { ApiError } from "../snippets/ApiError"
 
 export const polyConfig: PolyServerFunction = {
   context: "demo",
@@ -26,11 +27,19 @@ export type CityData = {
  */
 export async function getCityName(latitude: number, longitude: number): Promise<CityData> {
   if (!Number.isFinite(latitude) || latitude < -90 || latitude > 90) {
-    throw new Error("Invalid latitude. Expected a number between -90 and 90.");
+    throw new ApiError(
+      400, 
+      "Bad Request", 
+      "Invalid latitude. Expected a number between -90 and 90."
+    );
   }
 
   if (!Number.isFinite(longitude) || longitude < -180 || longitude > 180) {
-    throw new Error("Invalid longitude. Expected a number between -180 and 180.");
+    throw new ApiError(
+      400, 
+      "Bad Request", 
+      "Invalid longitude. Expected a number between -180 and 180."
+    );
   }
 
   const params = new URLSearchParams({
@@ -39,15 +48,27 @@ export async function getCityName(latitude: number, longitude: number): Promise<
     localityLanguage: "en",
   });
 
-  const url = "https://api.bigdatacloud.net/data/reverse-geocode-client";
+  const url = await vari.demo.BIGDATACLOUD_API_BASE_URL.get();
 
   try {
-    const resposne = await fetch(`${url}?${params.toString()}`);
-    if (!resposne.ok) {
-      throw new Error(`BigDataCloud API error: ${resposne.status} ${resposne.statusText}`);
+    const response = await fetch(`${url}?${params.toString()}`);
+    if (!response) {
+      throw new ApiError(
+        500,
+        "Internal Server Error",
+        "BigDataCloud API response is missing."
+      );
     }
 
-    const data = await resposne.json();
+    if (!response.ok) {
+      throw new ApiError(
+        response.status || 500,
+        response.statusText || "Internal Server Error",
+        `BigDataCloud API error: ${response.status} ${response.statusText}`
+      );
+    }
+
+    const data = await response.json();
 
     console.log("Successfully fetched city data from BigDataCloud API.");
 
@@ -60,6 +81,13 @@ export async function getCityName(latitude: number, longitude: number): Promise<
     
   } catch (error) {
     console.error("Error fetching city data:", error);
-    throw error;
+    if (error instanceof ApiError) {
+      throw error;
+    }
+    throw new ApiError(
+      500,
+      "Internal Server Error",
+      "An error occurred while fetching city data."
+    );
   }
 }

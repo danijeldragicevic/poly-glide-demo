@@ -7,7 +7,6 @@ const TEMPERATURE_INDEX = 0;
 const HUMIDITY_INDEX = 1;
 const RAIN_INDEX = 2;
 
-// Configuration for the Poly server function
 export const polyConfig: PolyServerFunction = {
   context: "demo",
   name: "getWeatherData",
@@ -17,7 +16,6 @@ export const polyConfig: PolyServerFunction = {
   serverSideAsync: false,
 };
 
-// Define the structure of the weather data response
 export type WeatherData = {
   latitude: number;
   longitude: number;
@@ -99,6 +97,9 @@ export async function getWeatherData(latitude: number, longitude: number): Promi
     };
   } catch (error) {
     console.error("Error fetching weather data:", error);
+    if (error instanceof ApiError) {
+      throw error;
+    }
     throw new ApiError(
       500,
       "Internal Server Error",
