@@ -3,7 +3,7 @@ import { PolyServerFunction } from "polyapi";
 
 export const polyConfig: PolyServerFunction = {
   context: "demo",
-  name: "getCityName",
+  name: "getCityName",  
   description: "Get city name from latitude and longitude.",
   visibility: "TENANT",
   logsEnabled: true,
