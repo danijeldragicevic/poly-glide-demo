@@ -44,12 +44,6 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Deploy snippets
-        env:
-          POLY_API_KEY: ${{ secrets.POLY_API_KEY_PROD }}
-          POLY_API_BASE_URL: ${{ secrets.POLY_API_BASE_URL_PROD }}
-        run: npx poly snippet add ApiErrors ./snippets/ApiErrors.ts --context demo --description "Snippet synced from GitHub Actions"
-
       - name: Poly Deploy
         uses: polyapi/poly-deployment-action-js@v0.2.17
         with:
