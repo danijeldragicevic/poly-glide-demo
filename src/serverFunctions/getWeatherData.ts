@@ -1,6 +1,7 @@
 // Poly deployed @ 2026-02-26T13:32:31.455Z - demo.getWeatherData - https://na1.polyapi.io/canopy/polyui/collections/server-functions/60fb7849-6da5-4fa2-aaeb-f790e76b6e8f - 01f7dfcf
 import { PolyServerFunction, vari } from "polyapi";
 import { fetchWeatherApi } from "openmeteo";
+import { ApiError } from "../snippets/ApiError"
 
 const TEMPERATURE_INDEX = 0;
 const HUMIDITY_INDEX = 1;
@@ -37,11 +38,19 @@ export type WeatherData = {
  */
 export async function getWeatherData(latitude: number, longitude: number): Promise<WeatherData> {
   if (!Number.isFinite(latitude) || latitude < -90 || latitude > 90) {
-    throw new Error("Invalid latitude. Expected a number between -90 and 90.");
+    throw new ApiError(
+      400, 
+      "Bad Request", 
+      "Invalid latitude. Expected a number between -90 and 90."
+    );
   }
 
   if (!Number.isFinite(longitude) || longitude < -180 || longitude > 180) {
-    throw new Error("Invalid longitude. Expected a number between -180 and 180.");
+    throw new ApiError(
+      400, 
+      "Bad Request", 
+      "Invalid longitude. Expected a number between -180 and 180."
+    );
   }
 
   const params = {
@@ -57,12 +66,20 @@ export async function getWeatherData(latitude: number, longitude: number): Promi
   try {
     const response = (await fetchWeatherApi(url, params, retries))[0];
     if (!response) {
-      throw new Error("Open-Meteo API response is missing.");
+      throw new ApiError(
+        500, 
+        "Internal Server Error", 
+        "Open-Meteo API response is missing."
+      );
     }
 
     const hourly = response.hourly();
     if (!hourly) {
-      throw new Error("Hourly data is missing in the API response.");
+      throw new ApiError(
+        500, 
+        "Internal Server Error", 
+        "Hourly data is missing in the API response."
+      );
     }
 
     const temperature = hourly.variables(TEMPERATURE_INDEX)?.valuesArray() ?? [];
@@ -82,6 +99,10 @@ export async function getWeatherData(latitude: number, longitude: number): Promi
     };
   } catch (error) {
     console.error("Error fetching weather data:", error);
-    throw error;
+    throw new ApiError(
+      500,
+      "Internal Server Error",
+      "An error occurred while fetching weather data."
+    );
   }
 }

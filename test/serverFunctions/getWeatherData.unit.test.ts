@@ -2,6 +2,7 @@ import { describe, it, expect, vi } from "vitest";
 import { fetchWeatherApi } from "openmeteo";
 import { getWeatherData } from "../../src/serverFunctions/getWeatherData";
 
+
 vi.mock("polyapi", () => ({
   vari: {
     demo: {
@@ -48,22 +49,31 @@ describe("getWeatherData (unit tests)", () => {
   });
 
   it("should throw an error for invalid latitude", async () => {
-    await expect(getWeatherData(100, -74.006)).rejects.toThrow(
-      "Invalid latitude. Expected a number between -90 and 90."
-    );
+    await expect(getWeatherData(100, -74.006)).rejects.toMatchObject({
+      name: "ApiError",
+      status: 400,
+      statusText: "Bad Request",
+      message: "Invalid latitude. Expected a number between -90 and 90."
+    });
   });
 
   it("should throw an error for invalid longitude", async () => {
-    await expect(getWeatherData(40.7128, -190)).rejects.toThrow(
-      "Invalid longitude. Expected a number between -180 and 180."
-    );
+    await expect(getWeatherData(40.7128, -190)).rejects.toMatchObject({
+      name: "ApiError",
+      status: 400,
+      statusText: "Bad Request",
+      message: "Invalid longitude. Expected a number between -180 and 180."
+    });
   });
 
   it("should throw an error if API returns empty response", async () => {
     vi.mocked(fetchWeatherApi).mockResolvedValue([] as any);
-    await expect(getWeatherData(40.7128, -74.006)).rejects.toThrow(
-      "Open-Meteo API response is missing."
-    );
+    await expect(getWeatherData(40.7128, -74.006)).rejects.toMatchObject({
+      name: "ApiError",
+      status: 500,
+      statusText: "Internal Server Error",
+      message: "An error occurred while fetching weather data.",
+    });
   });
 
   it("should throw an error if hourly data is missing in API response", async () => {
@@ -75,8 +85,11 @@ describe("getWeatherData (unit tests)", () => {
 
     vi.mocked(fetchWeatherApi).mockResolvedValue([mockData] as any);
 
-    await expect(getWeatherData(40.7128, -74.006)).rejects.toThrow(
-      "Hourly data is missing in the API response."
-    );
+    await expect(getWeatherData(40.7128, -74.006)).rejects.toMatchObject({
+      name: "ApiError",
+      status: 500,
+      statusText: "Internal Server Error",
+      message: "An error occurred while fetching weather data.",
+    });
   });
 });
