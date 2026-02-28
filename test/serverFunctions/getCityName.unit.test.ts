@@ -22,7 +22,6 @@ describe("getCityName (unit tests)", () => {
       countryName: "United States",
     };
 
-    // Mock the fetch response
     global.fetch = vi.fn().mockResolvedValue({
       ok: true,
       json: async () => mockResponse,
@@ -56,7 +55,6 @@ describe("getCityName (unit tests)", () => {
   });
 
   it("should throw an error when API response is missing", async () => {
-    const consoleErrorSpy = vi.spyOn(console, "error").mockImplementation(() => undefined);
     global.fetch = vi.fn().mockResolvedValue(null as any);
     
     await expect(getCityName(40.7128, -74.006)).rejects.toMatchObject({
@@ -65,11 +63,9 @@ describe("getCityName (unit tests)", () => {
       statusText: "Internal Server Error",
       message: "BigDataCloud API response is missing.",
     });
-    consoleErrorSpy.mockRestore();
   });
 
   it("should throw an error when API call fails", async () => {
-    const consoleErrorSpy = vi.spyOn(console, "error").mockImplementation(() => undefined);
     vi.mocked(global.fetch).mockRejectedValue(new Error("Network error"));
     
     await expect(getCityName(40.7128, -74.006)).rejects.toMatchObject({
@@ -78,6 +74,5 @@ describe("getCityName (unit tests)", () => {
       statusText: "Internal Server Error",
       message: "An error occurred while fetching city data.",
     });
-    consoleErrorSpy.mockRestore();
   });
 });
