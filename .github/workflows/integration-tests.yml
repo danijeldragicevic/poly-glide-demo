@@ -9,7 +9,7 @@ on:
     - cron: '*/30 * * * *' # Run every 30 minutes
 
 jobs:
-  test:
+  run-integration-tests:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -24,7 +24,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Run integration tests for weather data
+      - name: Check connection to OpenWeather API
         run: npm test ./test/serverFunctions/getWeatherData.int.test.ts 
-      - name: Run integration tests for city name
+      - name: Check connection to BigDataCloud API
         run: npm test ./test/serverFunctions/getCityName.int.test.ts
