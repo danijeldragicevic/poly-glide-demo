@@ -1,4 +1,4 @@
-// Poly deployed @ 2026-02-27T16:20:21.735Z - demo.getCityName - https://na1.polyapi.io/canopy/polyui/collections/server-functions/a506681a-de0c-42ce-8aa1-bcc7e4458c71 - e7a6abcf
+// Poly deployed @ 2026-03-02T16:12:02.907Z - demo.getCityName - https://na1.polyapi.io/canopy/polyui/collections/server-functions/a506681a-de0c-42ce-8aa1-bcc7e4458c71 - e7a6abcf
 import { PolyServerFunction, vari } from "polyapi";
 
 class ApiError extends Error {
