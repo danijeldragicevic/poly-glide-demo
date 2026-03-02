@@ -1,3 +1,4 @@
+// Poly deployed @ 2026-03-02T14:17:45.554Z - demo.getDailyForecast - https://na1.polyapi.io/canopy/polyui/collections/server-functions/1a18edf5-2861-4a6c-ab9b-d0e565a9987c - 636718c6
 import poly, { PolyServerFunction } from "polyapi";
 
 export const polyConfig: PolyServerFunction = {
