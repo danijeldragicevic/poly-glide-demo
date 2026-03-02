@@ -1,6 +1,25 @@
 // Poly deployed @ 2026-02-27T16:20:21.735Z - demo.getCityName - https://na1.polyapi.io/canopy/polyui/collections/server-functions/a506681a-de0c-42ce-8aa1-bcc7e4458c71 - e7a6abcf
 import { PolyServerFunction, vari } from "polyapi";
-import { ApiError } from "../snippets/ApiError"
+
+class ApiError extends Error {
+  status: number;
+  statusText: string;
+
+  constructor(status: number, statusText: string, message: string) {
+    super(message);
+    this.name = "ApiError";
+    this.status = status;
+    this.statusText = statusText;
+  }
+
+  toJSON() {
+    return {
+      status: this.status,
+      statusText: this.statusText,
+      message: this.message,
+    };
+  }
+}
 
 export const polyConfig: PolyServerFunction = {
   context: "demo",

@@ -1,7 +1,26 @@
 // Poly deployed @ 2026-02-27T16:22:31.905Z - demo.getWeatherData - https://na1.polyapi.io/canopy/polyui/collections/server-functions/60fb7849-6da5-4fa2-aaeb-f790e76b6e8f - 01f7dfcf
 import { PolyServerFunction, vari } from "polyapi";
 import { fetchWeatherApi } from "openmeteo";
-import { ApiError } from "../snippets/ApiError"
+
+class ApiError extends Error {
+  status: number;
+  statusText: string;
+
+  constructor(status: number, statusText: string, message: string) {
+    super(message);
+    this.name = "ApiError";
+    this.status = status;
+    this.statusText = statusText;
+  }
+
+  toJSON() {
+    return {
+      status: this.status,
+      statusText: this.statusText,
+      message: this.message,
+    };
+  }
+}
 
 const TEMPERATURE_INDEX = 0;
 const HUMIDITY_INDEX = 1;
