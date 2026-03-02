@@ -1,11 +1,12 @@
-// Poly deployed @ 2026-03-02T12:07:44.898Z - demo.getDailyForecast - https://na1.polyapi.io/canopy/polyui/collections/client-functions/364ca169-2650-4a96-b10f-1f39e2aebb2b - 138d8fb9
-import poly, { PolyClientFunction } from "polyapi";
+import poly, { PolyServerFunction } from "polyapi";
 
-export const polyConfig: PolyClientFunction = {
+export const polyConfig: PolyServerFunction = {
     context: "demo",
     name: "getDailyForecast",
     description: "Get daily weather forecast for a given location.",
     visibility: "TENANT",
+    logsEnabled: true,
+    serverSideAsync: true
 };
 
 export type DailyForecast = {
@@ -34,3 +35,9 @@ export async function getDailyForecast(latitude: number, longitude: number): Pro
         rain: weatherData.data.rain,
     };
 }
+
+getDailyForecast(44.00299, 18.010437).then(result => {
+    console.log("Daily Forecast:", result);
+}).catch(error => {
+    console.error("Error fetching daily forecast:", error);
+});
