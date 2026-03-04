@@ -50,21 +50,9 @@ export type WeatherData = {
  *
  */
 export async function getWeatherData(latitude: number, longitude: number): Promise<WeatherData> {
-  if (!Number.isFinite(latitude) || latitude < -90 || latitude > 90) {
-    throw new ApiError(
-      400, 
-      "Bad Request", 
-      "Invalid latitude. Expected a number between -90 and 90."
-    );
-  }
+  validateInRange(latitude, -90, 90, "latitude");
+  validateInRange(longitude, -180, 180, "longitude");
 
-  if (!Number.isFinite(longitude) || longitude < -180 || longitude > 180) {
-    throw new ApiError(
-      400, 
-      "Bad Request", 
-      "Invalid longitude. Expected a number between -180 and 180."
-    );
-  }
 
   const searchParams = new URLSearchParams({
     latitude: String(latitude),
@@ -106,6 +94,21 @@ export async function getWeatherData(latitude: number, longitude: number): Promi
       500,
       "Internal Server Error",
       "An error occurred while fetching weather data."
+    );
+  }
+}
+
+function validateInRange(
+  value: number,
+  min: number,
+  max: number,
+  fieldName: "latitude" | "longitude"
+): void {
+  if (!Number.isFinite(value) || value < min || value > max) {
+    throw new ApiError(
+      400,
+      "Bad Request",
+      `Invalid ${fieldName}. Expected a number between ${min} and ${max}.`
     );
   }
 }

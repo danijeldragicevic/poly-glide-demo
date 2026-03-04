@@ -1,4 +1,3 @@
-// Poly deployed @ 2026-03-02T16:12:02.907Z - demo.getCityName - https://na1.polyapi.io/canopy/polyui/collections/server-functions/a506681a-de0c-42ce-8aa1-bcc7e4458c71 - e7a6abcf
 import { PolyServerFunction, vari } from "polyapi";
 
 class ApiError extends Error {
@@ -45,21 +44,8 @@ export type CityData = {
  * @throws Will throw an error if the API call fails or if the input is invalid.
  */
 export async function getCityName(latitude: number, longitude: number): Promise<CityData> {
-  if (!Number.isFinite(latitude) || latitude < -90 || latitude > 90) {
-    throw new ApiError(
-      400, 
-      "Bad Request", 
-      "Invalid latitude. Expected a number between -90 and 90."
-    );
-  }
-
-  if (!Number.isFinite(longitude) || longitude < -180 || longitude > 180) {
-    throw new ApiError(
-      400, 
-      "Bad Request", 
-      "Invalid longitude. Expected a number between -180 and 180."
-    );
-  }
+  validateInRange(latitude, -90, 90, "latitude");
+  validateInRange(longitude, -180, 180, "longitude");
 
   const params = new URLSearchParams({
     latitude: latitude.toString(),
@@ -97,6 +83,21 @@ export async function getCityName(latitude: number, longitude: number): Promise<
       500,
       "Internal Server Error",
       "An error occurred while fetching city data."
+    );
+  }
+}
+
+function validateInRange(
+  value: number,
+  min: number,
+  max: number,
+  fieldName: "latitude" | "longitude"
+): void {
+  if (!Number.isFinite(value) || value < min || value > max) {
+    throw new ApiError(
+      400,
+      "Bad Request",
+      `Invalid ${fieldName}. Expected a number between ${min} and ${max}.`
     );
   }
 }
