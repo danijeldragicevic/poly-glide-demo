@@ -1,6 +1,17 @@
 // Poly deployed @ 2026-03-04T11:07:42.022Z - demo.getWeatherData - https://na1.polyapi.io/canopy/polyui/collections/server-functions/60fb7849-6da5-4fa2-aaeb-f790e76b6e8f - 01f7dfcf
 import { PolyServerFunction, vari } from "polyapi";
 
+// PolyAPI configuratoin
+export const polyConfig: PolyServerFunction = {
+  context: "demo",
+  name: "getWeatherData",
+  description: "Fetch weather data from Open-Meteo API.",
+  visibility: "TENANT",
+  logsEnabled: true,
+  serverSideAsync: false,
+};
+
+// Error thrown by this function
 class ApiError extends Error {
   status: number;
   statusText: string;
@@ -21,15 +32,7 @@ class ApiError extends Error {
   }
 }
 
-export const polyConfig: PolyServerFunction = {
-  context: "demo",
-  name: "getWeatherData",
-  description: "Fetch weather data from Open-Meteo API.",
-  visibility: "TENANT",
-  logsEnabled: true,
-  serverSideAsync: false,
-};
-
+// Response returned by this function
 export type WeatherData = {
   latitude: number;
   longitude: number;
@@ -98,6 +101,7 @@ export async function getWeatherData(latitude: number, longitude: number): Promi
   }
 }
 
+// Helper function
 function validateInRange(
   value: number,
   min: number,

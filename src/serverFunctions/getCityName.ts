@@ -1,6 +1,17 @@
 // Poly deployed @ 2026-03-04T11:05:33.841Z - demo.getCityName - https://na1.polyapi.io/canopy/polyui/collections/server-functions/9a9664b6-e5fc-4feb-bc70-4e62cdb74eae - 2fdbe207
 import { PolyServerFunction, vari } from "polyapi";
 
+// PolyAPI configuratoin
+export const polyConfig: PolyServerFunction = {
+  context: "demo",
+  name: "getCityName",  
+  description: "Get city name from latitude and longitude.",
+  visibility: "TENANT",
+  logsEnabled: true,
+  serverSideAsync: false,
+};
+
+// Error thrown by this function
 class ApiError extends Error {
   status: number;
   statusText: string;
@@ -21,15 +32,7 @@ class ApiError extends Error {
   }
 }
 
-export const polyConfig: PolyServerFunction = {
-  context: "demo",
-  name: "getCityName",  
-  description: "Get city name from latitude and longitude.",
-  visibility: "TENANT",
-  logsEnabled: true,
-  serverSideAsync: false,
-};
-
+// Response returned by this function
 export type CityData = {
     latitude: number;
     longitude: number;
@@ -88,6 +91,7 @@ export async function getCityName(latitude: number, longitude: number): Promise<
   }
 }
 
+// Helper function
 function validateInRange(
   value: number,
   min: number,
