@@ -1,4 +1,4 @@
-// Poly deployed @ 2026-03-04T11:05:33.841Z - demo.getCityName - https://na1.polyapi.io/canopy/polyui/collections/server-functions/9a9664b6-e5fc-4feb-bc70-4e62cdb74eae - 2fdbe207
+// Poly deployed @ 2026-03-04T11:14:25.647Z - demo.getCityName - https://na1.polyapi.io/canopy/polyui/collections/server-functions/9a9664b6-e5fc-4feb-bc70-4e62cdb74eae - 2fdbe207
 import { PolyServerFunction, vari } from "polyapi";
 
 // PolyAPI configuratoin
