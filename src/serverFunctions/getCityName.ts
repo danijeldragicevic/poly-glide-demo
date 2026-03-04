@@ -73,23 +73,13 @@ export async function getCityName(latitude: number, longitude: number): Promise<
     const response = await fetch(`${url}?${params.toString()}`);
     if (!response) {
       throw new ApiError(
-        500,
-        "Internal Server Error",
+        503,
+        "Service Unavailable",
         "BigDataCloud API response is missing."
       );
     }
 
-    if (!response.ok) {
-      throw new ApiError(
-        response.status || 500,
-        response.statusText || "Internal Server Error",
-        `BigDataCloud API error: ${response.status} ${response.statusText}`
-      );
-    }
-
     const data = await response.json();
-
-    console.log("Successfully fetched city data from BigDataCloud API.");
 
     return {
       latitude,

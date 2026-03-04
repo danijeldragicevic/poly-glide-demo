@@ -1,6 +1,5 @@
 // Poly deployed @ 2026-03-02T16:14:33.142Z - demo.getWeatherData - https://na1.polyapi.io/canopy/polyui/collections/server-functions/60fb7849-6da5-4fa2-aaeb-f790e76b6e8f - 01f7dfcf
 import { PolyServerFunction, vari } from "polyapi";
-import { fetchWeatherApi } from "openmeteo";
 
 class ApiError extends Error {
   status: number;
@@ -22,10 +21,6 @@ class ApiError extends Error {
   }
 }
 
-const TEMPERATURE_INDEX = 0;
-const HUMIDITY_INDEX = 1;
-const RAIN_INDEX = 2;
-
 export const polyConfig: PolyServerFunction = {
   context: "demo",
   name: "getWeatherData",
@@ -39,6 +34,7 @@ export type WeatherData = {
   latitude: number;
   longitude: number;
   data: {
+    time: string[];
     temperature: number[];
     humidity: number[];
     rain: number[];
@@ -70,48 +66,35 @@ export async function getWeatherData(latitude: number, longitude: number): Promi
     );
   }
 
-  const params = {
-    latitude,
-    longitude,
-    hourly: ["temperature_2m", "relative_humidity_2m", "rain"],
-    forecast_days: 1,
-  };
-
+  const searchParams = new URLSearchParams({
+    latitude: String(latitude),
+    longitude: String(longitude),
+    hourly: "temperature_2m,relative_humidity_2m,rain",
+    forecast_days: "1",
+  });
+  
   const url = await vari.demo.OPEN_METEO_BASE_URL.get();
-  const retries = 3;
-
+  
   try {
-    const response = (await fetchWeatherApi(url, params, retries))[0];
+    const response = await fetch(`${url}?${searchParams.toString()}`);
     if (!response) {
       throw new ApiError(
-        500, 
-        "Internal Server Error", 
-        "Open-Meteo API response is missing."
+        503,
+        "Service Unavailable",
+        "Failed to fetch weather data from Open-Meteo API."
       );
     }
 
-    const hourly = response.hourly();
-    if (!hourly) {
-      throw new ApiError(
-        500, 
-        "Internal Server Error", 
-        "Hourly data is missing in the API response."
-      );
-    }
-
-    const temperature = hourly.variables(TEMPERATURE_INDEX)?.valuesArray() ?? [];
-    const humidity = hourly.variables(HUMIDITY_INDEX)?.valuesArray() ?? [];
-    const rain = hourly.variables(RAIN_INDEX)?.valuesArray() ?? [];
-
-    console.log("Successfully fetched weather data from Open-Meteo API.");
+    const data = await response.json();
 
     return {
-      latitude: response.latitude(),
-      longitude: response.longitude(),
+      latitude,
+      longitude,
       data: {
-        temperature: Array.from(temperature),
-        humidity: Array.from(humidity),
-        rain: Array.from(rain)
+        time: Array.from(data.hourly.time),
+        temperature: Array.from(data.hourly.temperature_2m),
+        humidity: Array.from(data.hourly.relative_humidity_2m),
+        rain: Array.from(data.hourly.rain)
       },
     };
   } catch (error) {

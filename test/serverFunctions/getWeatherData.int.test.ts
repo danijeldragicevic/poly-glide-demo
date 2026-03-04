@@ -19,6 +19,7 @@ describe("getWeatherData (integration test)", () => {
     
     expect(receivedLatitude).toBe("44.00299");
     expect(receivedLongitude).toBe("18.01044");
+    expect(result.data).toHaveProperty("time");
     expect(result.data).toHaveProperty("temperature");
     expect(result.data).toHaveProperty("humidity");
     expect(result.data).toHaveProperty("rain");

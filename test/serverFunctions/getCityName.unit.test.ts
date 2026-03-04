@@ -59,8 +59,8 @@ describe("getCityName (unit tests)", () => {
     
     await expect(getCityName(40.7128, -74.006)).rejects.toMatchObject({
       name: "ApiError",
-      status: 500,
-      statusText: "Internal Server Error",
+      status: 503,
+      statusText: "Service Unavailable",
       message: "BigDataCloud API response is missing.",
     });
   });
