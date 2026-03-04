@@ -21,6 +21,9 @@ class ApiError extends Error {
     this.name = "ApiError";
     this.status = status;
     this.statusText = statusText;
+
+    // Set the prototype explicitly to maintain instanceof checks
+    Object.setPrototypeOf(this, ApiError.prototype);
   }
 
   toJSON() {
