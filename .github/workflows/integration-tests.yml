@@ -3,7 +3,7 @@ name: Scheduled integration tests
 on:
   workflow_dispatch:
   schedule:
-    - cron: '*/30 * * * *' # Run every 30 minutes
+    - cron: '0 * * * *' # Run every 60 minutes
 
 jobs:
   run-integration-tests:
@@ -22,6 +22,6 @@ jobs:
         run: npm ci
 
       - name: Check connection to OpenWeather API
-        run: npm test ./test/serverFunctions/getWeatherData.int.test.ts 
+        run: npm test test/serverFunctions/repositories/getWeatherData.int.test.ts
       - name: Check connection to BigDataCloud API
-        run: npm test ./test/serverFunctions/getCityName.int.test.ts
+        run: npm test test/serverFunctions/repositories/getCityName.int.test.ts
