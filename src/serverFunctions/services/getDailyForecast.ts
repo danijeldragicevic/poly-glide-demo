@@ -49,6 +49,6 @@ export async function getDailyForecast(latitude: number, longitude: number): Pro
 }
 
 // Example usage
-getDailyForecast(40.7128, -74.006)
-    .then((forecast) => console.log("Daily Forecast:", forecast))
-    .catch((error) => console.error(error));
+// getDailyForecast(40.7128, -74.006)
+//     .then((forecast) => console.log("Daily Forecast:", forecast))
+//     .catch((error) => console.error(error));
