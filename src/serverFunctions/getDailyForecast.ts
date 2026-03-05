@@ -41,3 +41,8 @@ export async function getDailyForecast(latitude: number, longitude: number): Pro
         rain: weatherData.data.rain,
     };
 }
+
+// Example usage
+// getDailyForecast(140.7128, -74.006)
+//     .then((forecast) => console.log("Daily Forecast:", forecast))
+//     .catch((error) => console.error("Error fetching daily forecast:", error));
