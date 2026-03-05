@@ -5,11 +5,7 @@ vi.mock("polyapi", () => ({
     vari: {
         demo: {
             BIGDATACLOUD_API_BASE_URL: {
-                get: vi
-                    .fn()
-                    .mockResolvedValue(
-                        "https://api.bigdatacloud.net/data/reverse-geocode-client",
-                    ),
+                get: vi.fn().mockResolvedValue("https://api.bigdatacloud.net/data/reverse-geocode-client"),
             },
         },
     },
@@ -48,8 +44,7 @@ describe("getCityName (unit tests)", () => {
     it("should throw an error for invalid longitude", async () => {
         await expect(getCityName(40.7128, -190)).rejects.toBeInstanceOf(Error);
         await expect(getCityName(40.7128, -190)).rejects.toMatchObject({
-            message:
-                "Invalid longitude. Expected a number between -180 and 180.",
+            message: "Invalid longitude. Expected a number between -180 and 180.",
             status: 400,
             statusText: "Bad Request",
         });
@@ -68,8 +63,6 @@ describe("getCityName (unit tests)", () => {
 
     it("should throw an error when API call fails", async () => {
         vi.mocked(global.fetch).mockRejectedValue(new Error("Network error"));
-        await expect(getCityName(40.7128, -74.006)).rejects.toThrow(
-            "Network error",
-        );
+        await expect(getCityName(40.7128, -74.006)).rejects.toThrow("Network error");
     });
 });

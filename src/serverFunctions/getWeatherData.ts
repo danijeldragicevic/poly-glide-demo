@@ -48,7 +48,10 @@ export async function getWeatherData(latitude: number, longitude: number): Promi
   try {
     const response = await fetch(`${url}?${searchParams.toString()}`);
     if (!response) {
-      throw new Error("Failed to fetch weather data from Open-Meteo API.");
+      const error = new Error("Open-Meteo API response is missing.");
+      (error as any).status = 502;
+      (error as any).statusText = "Bad Gateway";
+      throw error;
     }
 
     const data = await response.json();
@@ -64,7 +67,6 @@ export async function getWeatherData(latitude: number, longitude: number): Promi
       },
     };
   } catch (error) {
-    console.error("Error fetching weather data:", error);
     throw error;
   }
 }
@@ -77,6 +79,14 @@ function validateInRange(
   fieldName: "latitude" | "longitude"
 ): void {
   if (!Number.isFinite(value) || value < min || value > max) {
-    throw new Error(`Invalid ${fieldName}. Expected a number between ${min} and ${max}.`);
+    const error = new Error(`Invalid ${fieldName}. Expected a number between ${min} and ${max}.`);
+    (error as any).status = 400;
+    (error as any).statusText = "Bad Request";
+    throw error;
   }
 }
+
+// Example usage
+// getWeatherData(410.7128, -74.0060)
+//   .then((data) => console.log("Weather Data:", data))
+//   .catch((error) => console.error(error));
