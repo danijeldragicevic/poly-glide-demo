@@ -48,5 +48,29 @@ describe("getDailyForecast (unit tests)", () => {
 			rain: [0, 0.2],
 		});
 	});
+
+	it("should propagate errors from getWeatherData", async () => {
+		getWeatherDataMock.mockRejectedValue(new Error("Weather data error"));
+		getCityNameMock.mockResolvedValue({
+			city: "New York",
+			countryName: "United States",
+		});
+
+		await expect(getDailyForecast(40.7128, -74.006)).rejects.toThrow("Weather data error");
+	});
+
+	it("should propagate errors from getCityName", async () => {
+		getWeatherDataMock.mockResolvedValue({
+			data: {
+				time: ["2026-03-04T00:00", "2026-03-04T01:00"],
+				temperature: [11.2, 10.8],
+				humidity: [76, 79],
+				rain: [0, 0.2],
+			},
+		});
+		getCityNameMock.mockRejectedValue(new Error("City name error"));
+
+		await expect(getDailyForecast(40.7128, -74.006)).rejects.toThrow("City name error");
+	});
 });
 
