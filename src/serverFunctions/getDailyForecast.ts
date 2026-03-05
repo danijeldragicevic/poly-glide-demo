@@ -15,34 +15,40 @@ export const polyConfig: PolyServerFunction = {
 export type DailyForecast = {
     city: string;
     country: string;
-    time: string[];
-    temperature: number[];
-    humidity: number[];
-    rain: number[];
+    forecast: Array<{
+        time: string;
+        temperature: number;
+        humidity: number;
+        rain: number;
+    }>;
 };
 
 /**
  * Get daily weather forecast for a given location.
  * @param {number} latitude - The geographic latitude of the location to retrieve the daily weather forecast for, in decimal degrees (typically in the range -90 to 90).
  * @param {number} longitude - The geographic longitude of the location to retrieve the daily weather forecast for, in decimal degrees (typically in the range -180 to 180).
- * @returns {Promise<DailyForecast>} 
+ * @returns {Promise<DailyForecast>} Daily weather forecast for the given location.
  */
 export async function getDailyForecast(latitude: number, longitude: number): Promise<DailyForecast> {
+    // Fetch weather data and city information in parallel
     const [weatherData, cityInfo] = await Promise.all([
         poly.demo.getWeatherData(latitude, longitude),
         poly.demo.getCityName(latitude, longitude),
     ]);
+    
     return {
         city: cityInfo.city,
         country: cityInfo.countryName,
-        time: weatherData.data.time,
-        temperature: weatherData.data.temperature,
-        humidity: weatherData.data.humidity,
-        rain: weatherData.data.rain,
+        forecast: weatherData.data.time.map((time, index) => ({
+            time,
+            temperature: weatherData.data.temperature[index],
+            humidity: weatherData.data.humidity[index],
+            rain: weatherData.data.rain[index],
+        })),
     };
 }
 
 // Example usage
-// getDailyForecast(140.7128, -74.006)
-//     .then((forecast) => console.log("Daily Forecast:", forecast))
-//     .catch((error) => console.error("Error fetching daily forecast:", error));
+getDailyForecast(40.7128, -74.006)
+    .then((forecast) => console.log("Daily Forecast:", forecast))
+    .catch((error) => console.error(error));

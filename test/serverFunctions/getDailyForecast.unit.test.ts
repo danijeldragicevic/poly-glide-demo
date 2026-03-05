@@ -42,10 +42,20 @@ describe("getDailyForecast (unit tests)", () => {
 		expect(result).toEqual({
 			city: "New York",
 			country: "United States",
-			time: ["2026-03-04T00:00", "2026-03-04T01:00"],
-			temperature: [11.2, 10.8],
-			humidity: [76, 79],
-			rain: [0, 0.2],
+			forecast: [
+				{
+					time: "2026-03-04T00:00",
+					temperature: 11.2,
+					humidity: 76,
+					rain: 0,
+				},
+				{
+					time: "2026-03-04T01:00",
+					temperature: 10.8,
+					humidity: 79,
+					rain: 0.2,
+				},
+			],
 		});
 	});
 
