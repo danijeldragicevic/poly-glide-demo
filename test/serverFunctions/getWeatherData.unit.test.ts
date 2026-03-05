@@ -1,4 +1,4 @@
-import { afterEach, describe, expect, it, vi } from "vitest";
+import { describe, it, expect, vi } from "vitest";
 import { getWeatherData } from "../../src/serverFunctions/getWeatherData";
 
 vi.mock("polyapi", () => ({
@@ -40,42 +40,20 @@ describe("getWeatherData (unit tests)", () => {
   });
 
   it("should throw an error for invalid latitude", async () => {
-    await expect(getWeatherData(100, -74.006)).rejects.toMatchObject({
-      name: "ApiError",
-      status: 400,
-      statusText: "Bad Request",
-      message: "Invalid latitude. Expected a number between -90 and 90.",
-    });
+    await expect(getWeatherData(100, -74.006)).rejects.toThrow("Invalid latitude. Expected a number between -90 and 90.");
   });
 
   it("should throw an error for invalid longitude", async () => {
-    await expect(getWeatherData(40.7128, -190)).rejects.toMatchObject({
-      name: "ApiError",
-      status: 400,
-      statusText: "Bad Request",
-      message: "Invalid longitude. Expected a number between -180 and 180.",
-    });
+    await expect(getWeatherData(40.7128, -190)).rejects.toThrow("Invalid longitude. Expected a number between -180 and 180.");
   });
 
   it("should throw an error when API response is missing", async () => {
     global.fetch = vi.fn().mockResolvedValue(null as any);
-
-    await expect(getWeatherData(40.7128, -74.006)).rejects.toMatchObject({
-      name: "ApiError",
-      status: 503,
-      statusText: "Service Unavailable",
-      message: "Failed to fetch weather data from Open-Meteo API.",
-    });
+    await expect(getWeatherData(40.7128, -74.006)).rejects.toThrow("Failed to fetch weather data from Open-Meteo API.");
   });
 
   it("should throw an error when API call fails", async () => {
-    vi.mocked(global.fetch).mockRejectedValue(new Error("Network error"));
-
-    await expect(getWeatherData(40.7128, -74.006)).rejects.toMatchObject({
-      name: "ApiError",
-      status: 500,
-      statusText: "Internal Server Error",
-      message: "An error occurred while fetching weather data.",
-    });
+    global.fetch = vi.fn().mockRejectedValue(new Error("Network error"));
+    await expect(getWeatherData(40.7128, -74.006)).rejects.toThrow("Network error");
   });
 });

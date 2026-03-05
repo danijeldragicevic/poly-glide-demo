@@ -1,6 +1,7 @@
 // Poly deployed @ 2026-03-02T14:17:45.554Z - demo.getDailyForecast - https://na1.polyapi.io/canopy/polyui/collections/server-functions/1a18edf5-2861-4a6c-ab9b-d0e565a9987c - 636718c6
-import poly, { PolyServerFunction } from "polyapi";
+import poly, { PolyServerFunction, OobPolyapiSnippets } from "polyapi";
 
+// PolyAPI configuratoin
 export const polyConfig: PolyServerFunction = {
     context: "demo",
     name: "getDailyForecast",
@@ -10,9 +11,11 @@ export const polyConfig: PolyServerFunction = {
     serverSideAsync: true
 };
 
+// Response returned by this function
 export type DailyForecast = {
     city: string;
     country: string;
+    time: string[];
     temperature: number[];
     humidity: number[];
     rain: number[];
@@ -25,20 +28,16 @@ export type DailyForecast = {
  * @returns {Promise<DailyForecast>} 
  */
 export async function getDailyForecast(latitude: number, longitude: number): Promise<DailyForecast> {
-    const weatherData = await poly.demo.getWeatherData(latitude, longitude);
-    const cityInfo = await poly.demo.getCityName(latitude, longitude);
-
+    const [weatherData, cityInfo] = await Promise.all([
+        poly.demo.getWeatherData(latitude, longitude),
+        poly.demo.getCityName(latitude, longitude),
+    ]);
     return {
         city: cityInfo.city,
         country: cityInfo.countryName,
+        time: weatherData.data.time,
         temperature: weatherData.data.temperature,
         humidity: weatherData.data.humidity,
         rain: weatherData.data.rain,
     };
 }
-
-getDailyForecast(44.00299, 18.010437).then(result => {
-    console.log("Daily Forecast:", result);
-}).catch(error => {
-    console.error("Error fetching daily forecast:", error);
-});

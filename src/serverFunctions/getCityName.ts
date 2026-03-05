@@ -11,30 +11,6 @@ export const polyConfig: PolyServerFunction = {
   serverSideAsync: false,
 };
 
-// Error thrown by this function
-class ApiError extends Error {
-  status: number;
-  statusText: string;
-
-  constructor(status: number, statusText: string, message: string) {
-    super(message);
-    this.name = "ApiError";
-    this.status = status;
-    this.statusText = statusText;
-
-    // Set the prototype explicitly to maintain instanceof checks
-    Object.setPrototypeOf(this, ApiError.prototype);
-  }
-
-  toJSON() {
-    return {
-      status: this.status,
-      statusText: this.statusText,
-      message: this.message,
-    };
-  }
-}
-
 // Response returned by this function
 export type CityData = {
     latitude: number;
@@ -65,11 +41,7 @@ export async function getCityName(latitude: number, longitude: number): Promise<
   try {
     const response = await fetch(`${url}?${params.toString()}`);
     if (!response) {
-      throw new ApiError(
-        503,
-        "Service Unavailable",
-        "BigDataCloud API response is missing."
-      );
+      throw new Error("BigDataCloud API response is missing.");
     }
 
     const data = await response.json();
@@ -83,14 +55,7 @@ export async function getCityName(latitude: number, longitude: number): Promise<
     
   } catch (error) {
     console.error("Error fetching city data:", error);
-    if (error instanceof ApiError) {
-      throw error;
-    }
-    throw new ApiError(
-      500,
-      "Internal Server Error",
-      "An error occurred while fetching city data."
-    );
+    throw error;
   }
 }
 
@@ -102,10 +67,6 @@ function validateInRange(
   fieldName: "latitude" | "longitude"
 ): void {
   if (!Number.isFinite(value) || value < min || value > max) {
-    throw new ApiError(
-      400,
-      "Bad Request",
-      `Invalid ${fieldName}. Expected a number between ${min} and ${max}.`
-    );
+    throw new Error(`Invalid ${fieldName}. Expected a number between ${min} and ${max}.`);
   }
 }
