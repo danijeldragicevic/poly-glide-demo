@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from "vitest";
-import { getCityName } from "../../src/serverFunctions/getCityName";
+import { getCityName } from "../../../src/serverFunctions/respositories/getCityName";
 
 vi.mock("polyapi", () => ({
     vari: {
