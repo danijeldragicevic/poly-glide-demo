@@ -35,7 +35,8 @@ export const polyConfig: PolyWebhook = {
     },
     securityFunctions: [
         {
-            id: "542f57f8-4d2d-43e8-8d82-014a6fe76e25"
+            path: "demo.validateForecastPayload",
+            message: "Invalid payload: latitude and longitude are required numbers.",
         },
     ],
 };
