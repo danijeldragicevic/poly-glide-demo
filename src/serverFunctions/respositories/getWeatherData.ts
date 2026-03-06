@@ -70,7 +70,7 @@ export async function getWeatherData(latitude: number, longitude: number): Promi
   }
 }
 
-// Helper function
+// Helper validation function
 function validateInRange(
   value: number,
   min: number,

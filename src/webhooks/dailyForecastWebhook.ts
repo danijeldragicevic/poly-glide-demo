@@ -1,5 +1,6 @@
 import { PolyWebhook } from "polyapi";
 
+// PolyAPI configuration
 export const polyConfig: PolyWebhook = {
     context: "demo",
     name: "dailyForecastWebhook",

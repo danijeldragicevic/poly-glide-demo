@@ -61,7 +61,7 @@ export async function getCityName(latitude: number, longitude: number): Promise<
   }
 }
 
-// Helper function
+// Helper validation function
 function validateInRange(
   value: number,
   min: number,
