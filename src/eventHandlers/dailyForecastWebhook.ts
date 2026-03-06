@@ -3,7 +3,7 @@ import poly, { PolyWebhook } from "polyapi";
 // const functionPath = poly.demo.validateForecastPayload.name;
 
 const { functions } = require("../.poly/lib/server/functions.js");
-const validateForecastPayload_Id = functions.find(([path]: [string]) => path === "demo.validateForecastPayload")?.[1];
+export const validateForecastPayload_Id = functions.find(([path]: [string]) => path === "demo.validateForecastPayload")?.[1];
 
 
 export const polyConfig: PolyWebhook = {
