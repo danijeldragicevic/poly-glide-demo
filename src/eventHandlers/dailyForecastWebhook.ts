@@ -6,6 +6,7 @@ export const polyConfig: PolyWebhook = {
     description: "Receives a latitude and longitude and emits an event to trigger the daily weather forecast.",
     visibility: "TENANT",
     method: "POST",
+    subpath: "daily-forecast",
     eventPayloadTypeSchema: {
         type: "object",
         properties: {
