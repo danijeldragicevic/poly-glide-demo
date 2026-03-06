@@ -25,11 +25,18 @@ export type DailyForecast = {
 
 /**
  * Get daily weather forecast for a given location.
- * @param {number} latitude - The geographic latitude of the location to retrieve the daily weather forecast for, in decimal degrees (typically in the range -90 to 90).
- * @param {number} longitude - The geographic longitude of the location to retrieve the daily weather forecast for, in decimal degrees (typically in the range -180 to 180).
+ * @param {{ latitude: number; longitude: number }} eventPayload - The webhook event payload containing the location coordinates.
+ * @param {Record<string, string>} headersPayload - The webhook request headers.
+ * @param {Record<string, string>} paramsPayload - The webhook query parameters.
  * @returns {Promise<DailyForecast>} Daily weather forecast for the given location.
  */
-export async function getDailyForecast(latitude: number, longitude: number): Promise<DailyForecast> {
+export async function getDailyForecast(
+    eventPayload: { latitude: number; longitude: number },
+    headersPayload: Record<string, string>,
+    paramsPayload: Record<string, string>,
+): Promise<DailyForecast> {
+    const { latitude, longitude } = eventPayload;
+
     // Fetch weather data and city information in parallel
     const [weatherData, cityInfo] = await Promise.all([
         poly.demo.getWeatherData(latitude, longitude),
