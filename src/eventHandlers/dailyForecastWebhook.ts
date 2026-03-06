@@ -35,7 +35,7 @@ export const polyConfig: PolyWebhook = {
     },
     securityFunctions: [
         {
-            id: "validateForecastPayload"
-        }
-    ]
+            id: "542f57f8-4d2d-43e8-8d82-014a6fe76e25"
+        },
+    ],
 };
