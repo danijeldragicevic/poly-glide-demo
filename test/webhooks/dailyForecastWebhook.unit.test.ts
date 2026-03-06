@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { polyConfig } from "../../src/eventHandlers/dailyForecastWebhook";
+import { polyConfig } from "../../src/webhooks/dailyForecastWebhook";
 
 describe("dailyForecastWebhook (unit tests)", () => {
     it("should have the correct polyConfig identity", () => {
@@ -28,5 +28,12 @@ describe("dailyForecastWebhook (unit tests)", () => {
         expect(polyConfig.responseStatus).toBe(200);
         expect(polyConfig.responseHeaders["Content-Type"]).toBe("application/json");
         expect(polyConfig.responsePayload).toBeDefined();
+    });
+
+    it ("should have security functions defined", () => {
+        expect(polyConfig.securityFunctions).toBeDefined();
+        expect(Array.isArray(polyConfig.securityFunctions)).toBe(true);
+        expect(polyConfig.securityFunctions.length).toBeGreaterThan(0);
+        expect(polyConfig.securityFunctions[0]).toHaveProperty("id");
     });
 });

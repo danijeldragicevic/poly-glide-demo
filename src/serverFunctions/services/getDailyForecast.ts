@@ -56,6 +56,6 @@ export async function getDailyForecast(
 }
 
 // Example usage
-// getDailyForecast(40.7128, -74.006)
+// getDailyForecast({ latitude: 40.7128, longitude: -74.0060 }, {}, {})
 //     .then((forecast) => console.log("Daily Forecast:", forecast))
-//     .catch((error) => console.error(error));
+//     .catch((error) => console.error("Error fetching daily forecast:", error));
