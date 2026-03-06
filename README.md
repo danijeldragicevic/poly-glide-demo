@@ -89,7 +89,8 @@ The webhook responds with:
 | `forecast[].humidity` | `number` | Relative humidity at 2 m (%) |
 | `forecast[].rain` | `number` | Rainfall (mm) |
 
-### Validation errors (400 Bad Request)
+
+## Validation errors (400 Bad Request)
 Thrown by `validateForecastPayload` when the request body is invalid:
 
 | Condition | Message |
@@ -105,13 +106,14 @@ Thrown by `validateForecastPayload` when the request body is invalid:
 }
 ```
 
-### Upstream errors (502 Bad Gateway)
+## Upstream errors (502 Bad Gateway)
 Thrown when an external API does not respond:
 
 | Source | Message |
 |---|---|
 | BigDataCloud (city lookup) | `"BigDataCloud API response is missing."` |
 | Open-Meteo (weather data) | `"Open-Meteo API response is missing."` |
+
 
 ## License
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
