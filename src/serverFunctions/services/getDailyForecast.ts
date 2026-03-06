@@ -8,7 +8,7 @@ export const polyConfig: PolyServerFunction = {
     description: "Get daily weather forecast for a given location.",
     visibility: "TENANT",
     logsEnabled: true,
-    serverSideAsync: true
+    serverSideAsync: false
 };
 
 // Response returned by this function

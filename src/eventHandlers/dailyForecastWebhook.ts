@@ -1,4 +1,4 @@
-import { PolyWebhook } from "polyapi";
+import poly, { PolyWebhook } from "polyapi";
 
 export const polyConfig: PolyWebhook = {
     context: "demo",
@@ -33,4 +33,9 @@ export const polyConfig: PolyWebhook = {
         trim: false,
         normalizeTags: false,
     },
+    securityFunctions: [
+        {
+            id: poly.demo.validateForecastPayload.name
+        }
+    ]
 };
