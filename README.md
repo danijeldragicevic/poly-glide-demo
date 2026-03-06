@@ -1,4 +1,6 @@
 # PolyAPI Demo
+[![Run Tests](https://github.com/danijeldragicevic/poly-glide-demo/actions/workflows/deploy.yml/badge.svg?branch=main)](https://github.com/danijeldragicevic/poly-glide-demo/actions/workflows/deploy.yml)
+
 Demo project I'm using to learn how to develop integrations using the [PolyAPI](polyapi.io) platform.
 
 ## Tech stack
