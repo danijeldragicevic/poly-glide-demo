@@ -8,37 +8,35 @@ export const polyConfig: PolyServerFunction = {
     description: "Validates the payload for the daily forecast webhook.",
     visibility: "TENANT",
     logsEnabled: true,
-    serverSideAsync: false
+    serverSideAsync: false,
 };
 
 /**
  * Validates the payload for the daily forecast webhook.
  * @param {{ latitude?: unknown; longitude?: unknown }} event - Webhook request payload object containing the fields to validate.
- * @returns {Promise<boolean>} 
+ * @returns {Promise<boolean>}
  */
-export function validateForecastPayload(event: { latitude?: unknown; longitude?: unknown }): Promise<boolean> { 
+export function validateForecastPayload(event: { latitude?: unknown; longitude?: unknown }): Promise<boolean> {
     const { latitude, longitude } = event;
 
     if (typeof latitude !== "number" || latitude < -90 || latitude > 90) {
-        return Promise.reject({
-            message: "Invalid latitude. Expected a number between -90 and 90.",
-            statusCode: 400,
-            statusText: "Bad Request",
-        });
+        const error = new Error(`Invalid latitude. Expected a number between -90 and 90.`);
+        (error as any).status = 400;
+        (error as any).statusText = "Bad Request";
+        throw error;
     }
 
     if (typeof longitude !== "number" || longitude < -180 || longitude > 180) {
-        return Promise.reject({
-            message: "Invalid longitude. Expected a number between -180 and 180.",
-            statusCode: 400,
-            statusText: "Bad Request",
-        });
+        const error = new Error(`Invalid longitude. Expected a number between -180 and 180.`);
+        (error as any).status = 400;
+        (error as any).statusText = "Bad Request";
+        throw error;
     }
-    
+
     return Promise.resolve(true);
 }
 
 // Example usage
-// validateForecastPayload({ latitude: 40.7128, longitude: -74.0060 })
-//     .then(() => console.log("Payload is valid."))
-//     .catch((error) => console.error("Payload validation failed:", error));
+validateForecastPayload({ latitude: null, longitude: -74.006 })
+    .then(() => console.log("Payload is valid."))
+    .catch((error) => console.error("Payload validation failed:", error));
