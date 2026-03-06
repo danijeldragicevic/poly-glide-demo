@@ -75,8 +75,3 @@ function validateInRange(
     throw error;
   }
 }
-
-// Example usage
-// getCityName(40.7128, -74.0060)
-//   .then((data) => console.log("City Data:", data))
-//   .catch((error) => console.error(error));

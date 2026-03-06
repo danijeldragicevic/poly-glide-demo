@@ -37,8 +37,3 @@ export function validateForecastPayload(event: { latitude?: unknown; longitude?:
     
     return Promise.resolve(true);
 }
-
-// Example usage
-// validateForecastPayload({ latitude: 40.7128, longitude: -74.0060 })
-//     .then(() => console.log("Payload is valid."))
-//     .catch((error) => console.error("Payload validation failed:", error));

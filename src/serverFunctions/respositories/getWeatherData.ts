@@ -35,7 +35,6 @@ export async function getWeatherData(latitude: number, longitude: number): Promi
   validateInRange(latitude, -90, 90, "latitude");
   validateInRange(longitude, -180, 180, "longitude");
 
-
   const searchParams = new URLSearchParams({
     latitude: String(latitude),
     longitude: String(longitude),
@@ -85,8 +84,3 @@ function validateInRange(
     throw error;
   }
 }
-
-// Example usage
-// getWeatherData(410.7128, -74.0060)
-//   .then((data) => console.log("Weather Data:", data))
-//   .catch((error) => console.error(error));

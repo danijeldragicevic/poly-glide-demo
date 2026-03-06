@@ -54,8 +54,3 @@ export async function getDailyForecast(
         })),
     };
 }
-
-// Example usage
-// getDailyForecast({ latitude: 40.7128, longitude: -74.0060 }, {}, {})
-//     .then((forecast) => console.log("Daily Forecast:", forecast))
-//     .catch((error) => console.error("Error fetching daily forecast:", error));
