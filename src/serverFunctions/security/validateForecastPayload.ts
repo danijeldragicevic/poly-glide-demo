@@ -12,7 +12,7 @@ export const polyConfig: PolyServerFunction = {
 
 /**
  * Validates the payload for the daily forecast webhook.
- * @param {{ body: { latitude?: unknown; longitude?: unknown } }} event - Webhook request event object containing a `body` with optional `latitude` and `longitude` fields. The function validates that these fields are numbers and within the ranges latitude -90..90 and longitude -180..180.
+ * @param {{ body: { latitude?: unknown; longitude?: unknown } }} event - Webhook event object containing the request payload to validate.
  * @returns {Promise<boolean>} 
  */
 export function validateForecastPayload(event: { body: { latitude?: unknown; longitude?: unknown } }): Promise<boolean> { 
