@@ -1,4 +1,4 @@
-// Poly deployed @ 2026-03-06T10:31:33.276Z - demo.validateForecastPayload - https://na1.polyapi.io/canopy/polyui/collections/server-functions/542f57f8-4d2d-43e8-8d82-014a6fe76e25 - 44f4f17e
+// Poly deployed @ 2026-03-06T10:41:32.139Z - demo.validateForecastPayload - https://na1.polyapi.io/canopy/polyui/collections/server-functions/542f57f8-4d2d-43e8-8d82-014a6fe76e25 - 44f4f17e
 import { PolyServerFunction } from "polyapi";
 
 // PolyAPI configuratoin
