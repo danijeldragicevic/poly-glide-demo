@@ -7,6 +7,7 @@ describe("dailyForecastWebhook (unit tests)", () => {
         expect(polyConfig.name).toBe("dailyForecastWebhook");
         expect(polyConfig.method).toBe("POST");
         expect(polyConfig.visibility).toBe("TENANT");
+        expect(polyConfig.slug).toBe("devdan");
     });
 
     it("should define an eventPayloadTypeSchema (not eventPayload)", () => {
