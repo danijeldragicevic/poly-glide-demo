@@ -83,49 +83,28 @@ The webhook responds with:
 }
 ```
 
-## Authentication errors (401/403)
+## Authentication errors
 Thrown by `validateWebhookApiKey` when the `x-api-key` header is missing or invalid:
 ```json
 {
-  "message": "API key is missing from the request headers.",
-  "statusCode": 401,
-  "statusText": "Unauthorized"
+    "statusCode": 500,
+    "message": "API key is missing from the request headers."
 }
 ```
 
 ```json
 {
-  "message": "Invalid API key provided.",
-  "statusCode": 403,
-  "statusText": "Forbidden"
+    "statusCode": 500,
+    "message": "Invalid API key provided."
 }
 ```
 
-## Validation errors (400 Bad Request)
+## Validation errors
 Thrown by `validateForecastPayload` when the request body is invalid:
 ```json
 {
-  "message": "Invalid latitude. Expected a number between -90 and 90.",
-  "statusCode": 400,
-  "statusText": "Bad Request"
-}
-```
-
-## Upstream errors (502 Bad Gateway)
-Thrown when an external API does not respond:
-```json
-{
-  "message": "BigDataCloud API response is missing.",
-  "statusCode": 502,
-  "statusText": "Bad Gateway"
-}
-```
-
-```json
-{
-  "message": "Open-Meteo API response is missing.",
-  "statusCode": 502,
-  "statusText": "Bad Gateway"
+    "statusCode": 500,
+    "message": "Invalid latitude. Expected a number between -90 and 90."
 }
 ```
 

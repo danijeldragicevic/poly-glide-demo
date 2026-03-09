@@ -1,10 +1,9 @@
-// Poly deployed @ 2026-03-09T10:24:31.407Z - demo.validateForecastPayload - https://na1.polyapi.io/canopy/polyui/collections/server-functions/542f57f8-4d2d-43e8-8d82-014a6fe76e25 - 44f4f17e
 import { PolyServerFunction } from "polyapi";
 
 // PolyAPI configuratoin
 export const polyConfig: PolyServerFunction = {
     context: "demo",
-    name: "validateForecastPayload",
+    name: "validateWebhookPayload",
     description: "Validates the payload for the daily forecast webhook.",
     visibility: "TENANT",
     logsEnabled: true,
@@ -16,7 +15,7 @@ export const polyConfig: PolyServerFunction = {
  * @param {{ latitude?: unknown; longitude?: unknown }} eventPayload - Webhook request payload object containing the fields to validate.
  * @returns {Promise<boolean>} 
  */
-export function validateForecastPayload(eventPayload: { latitude?: unknown; longitude?: unknown }): Promise<boolean> { 
+export function validateWebhookPayload(eventPayload: { latitude?: unknown; longitude?: unknown }): Promise<boolean> { 
     const { latitude, longitude } = eventPayload;
 
     if (typeof latitude !== "number" || latitude < -90 || latitude > 90) {
