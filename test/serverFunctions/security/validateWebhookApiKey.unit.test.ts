@@ -4,8 +4,8 @@ import { validateWebhookApiKey } from "../../../src/serverFunctions/security/val
 vi.mock("polyapi", () => ({
     vari: {
         demo: {
-            WEBHOOK_API_KEY: {
-                inject: vi.fn().mockReturnValue("test-api-key"),
+            DAILY_FORECAST_API_KEY: {
+                get: vi.fn().mockResolvedValue("test-api-key"),
             },
         },
     },
