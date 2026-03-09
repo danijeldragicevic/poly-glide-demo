@@ -8,6 +8,7 @@ export const polyConfig: PolyWebhook = {
     visibility: "TENANT",
     method: "POST",
     subpath: "daily-forecast",
+    requirePolyApiKey: true,
     slug: "devdan",
     eventPayloadTypeSchema: {
         type: "object",
