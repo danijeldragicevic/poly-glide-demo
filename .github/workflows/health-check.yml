@@ -1,9 +1,9 @@
-name: Scheduled integration tests
+name: Health Check
 
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 * * * *' # Run every 60 minutes
+    - cron: '0 */6 * * *' # Run every 6 hours
 
 jobs:
   run-integration-tests:
