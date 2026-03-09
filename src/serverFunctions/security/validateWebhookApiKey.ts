@@ -1,0 +1,42 @@
+import { PolyServerFunction, vari } from "polyapi";
+
+// PolyAPI configuratoin
+export const polyConfig: PolyServerFunction = {
+    context: "demo",
+    name: "validateWebhookApiKey",
+    description: "Validates the API key provided in the webhook request headers.",
+    visibility: "TENANT",
+    logsEnabled: true,
+    serverSideAsync: false
+};
+
+/**
+ * Validates the API key provided in the webhook request headers.
+ * @param {{}} eventPayload - The webhook request body/payload associated with the inbound event. Included for context and signature parity with other webhook validators, though API-key validation is performed using the headers.
+ * @param {{ [key: string]: string }} eventHeaders - A key/value map of HTTP request headers from the inbound webhook call. Must include the `x-api-key` header, which is validated against the expected tenant API key; missing `x-api-key` results in 401 Unauthorized and an invalid key results in 403 Forbidden.
+ * @returns {Promise<boolean>} 
+ */
+export function validateWebhookApiKey(eventPayload: {}, eventHeaders: { [key: string]: string }): Promise<boolean> {
+    const expectedApiKey = vari.demo.WEBHOOK_API_KEY.inject();
+    const apiKey = eventHeaders["x-api-key"];
+
+    console.log("Validating API key:", { apiKey, expectedApiKey });
+
+    if (!apiKey) {
+        return Promise.reject({
+            message: "API key is missing from the request headers.",
+            statusCode: 401,
+            statusText: "Unauthorized",
+        });
+    }
+
+    if (apiKey !== expectedApiKey) {
+        return Promise.reject({
+            message: "Invalid API key provided.",
+            statusCode: 403,
+            statusText: "Forbidden",
+        });
+    }
+
+    return Promise.resolve(true);
+}
