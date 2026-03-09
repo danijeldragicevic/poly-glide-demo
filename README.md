@@ -6,24 +6,26 @@ This project implements a **daily weather forecast integration** built on the [P
 
 ## Data flow
 ```
-POST /webhook  →  validateForecastPayload (security)
+POST /webhook  →  validateWebhookApiKey (security)
+                       ↓
+               validateForecastPayload (security)
                        ↓
                getDailyForecast (service)
                   ↙           ↘
         getCityName        getWeatherData
      (BigDataCloud)        (Open-Meteo)
 ```
-1. A client POSTs `latitude` and `longitude` to the webhook endpoint.
-2. The **security function** (`validateForecastPayload`) validates the coordinates before the event is processed.
-3. The **service function** (`getDailyForecast`) fetches city information and hourly weather data in parallel.
-4. A structured forecast object is returned.
+1. A client POSTs `latitude` and `longitude` to the webhook endpoint with an `x-api-key` header.
+2. The **security function** (`validateWebhookApiKey`) validates the API key from the request headers before anything else.
+3. The **security function** (`validateForecastPayload`) validates the coordinates before the event is processed.
+4. The **service function** (`getDailyForecast`) fetches city information and hourly weather data in parallel.
+5. A structured forecast object is returned.
 
 ## Tech stack
 - TypeScript
 - PolyAPI SDK
 - Vitest
 - Husky
-
 
 ## Getting started
 ### Prerequisites
@@ -51,12 +53,13 @@ There is a public webhook registered at this endpoint:
 ```bash
 curl -X POST 'https://f9d5a80d.na1.polyapi.io/webhooks/devdan/daily-forecast' \
   --header 'Content-Type: application/json' \
+  --header 'x-api-key: your-api-key-here' \
   --body '{
     "latitude": 40.7143,
     "longitude": -74.0060
 }'
 ```
-> Replace the host (`f9d5a80d.na1.polyapi.io`) and slug (`devdan`) with the values from your own PolyAPI environment if different.
+> Replace the host (`f9d5a80d.na1.polyapi.io`) and slug (`devdan`) with the values from your own PolyAPI environment if different. Replace `your-api-key-here` with your actual API key.
 
 The webhook responds with:
 ```json
@@ -77,6 +80,24 @@ The webhook responds with:
             "rain": 0
         }
     ]
+}
+```
+
+## Authentication errors (401/403)
+Thrown by `validateWebhookApiKey` when the `x-api-key` header is missing or invalid:
+```json
+{
+  "message": "API key is missing from the request headers.",
+  "statusCode": 401,
+  "statusText": "Unauthorized"
+}
+```
+
+```json
+{
+  "message": "Invalid API key provided.",
+  "statusCode": 403,
+  "statusText": "Forbidden"
 }
 ```
 

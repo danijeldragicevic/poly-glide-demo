@@ -36,10 +36,10 @@ export const polyConfig: PolyWebhook = {
     },
     securityFunctions: [
         {
-            id: "542f57f8-4d2d-43e8-8d82-014a6fe76e25"
+            id: "03640129-21e1-4801-828f-f03e09a46619"
         },
         {
-            id: "03640129-21e1-4801-828f-f03e09a46619"
+            id: "542f57f8-4d2d-43e8-8d82-014a6fe76e25"
         }
     ]
 };
