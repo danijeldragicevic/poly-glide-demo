@@ -1,6 +1,6 @@
 # PolyAPI Demo
 [![Deploy](https://github.com/danijeldragicevic/poly-glide-demo/actions/workflows/deploy.yml/badge.svg?branch=main)](https://github.com/danijeldragicevic/poly-glide-demo/actions/workflows/deploy.yml)
-[![Scheduled Integration Tests](https://github.com/danijeldragicevic/poly-glide-demo/actions/workflows/integration-tests.yml/badge.svg?branch=main)](https://github.com/danijeldragicevic/poly-glide-demo/actions/workflows/integration-tests.yml)
+[![Health check](https://github.com/danijeldragicevic/poly-glide-demo/actions/workflows/health-check.yml/badge.svg?branch=main)](https://github.com/danijeldragicevic/poly-glide-demo/actions/workflows/health-check.yml)
 
 ## Tech stack
 - TypeScript
