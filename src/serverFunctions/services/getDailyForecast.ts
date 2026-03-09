@@ -26,14 +26,10 @@ export type DailyForecast = {
 /**
  * Get daily weather forecast for a given location.
  * @param {{ latitude: number; longitude: number }} eventPayload - The webhook event payload containing the location coordinates.
- * @param {Record<string, string>} headersPayload - The webhook request headers.
- * @param {Record<string, string>} paramsPayload - The webhook query parameters.
  * @returns {Promise<DailyForecast>} Daily weather forecast for the given location.
  */
 export async function getDailyForecast(
-    eventPayload: { latitude: number; longitude: number },
-    headersPayload: Record<string, string>,
-    paramsPayload: Record<string, string>,
+    eventPayload: { latitude: number; longitude: number }
 ): Promise<DailyForecast> {
     const { latitude, longitude } = eventPayload;
 
