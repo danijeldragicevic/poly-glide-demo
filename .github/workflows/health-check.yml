@@ -6,7 +6,7 @@ on:
     - cron: '0 */6 * * *' # Run every 6 hours
 
 jobs:
-  run-integration-tests:
+  run-tests:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
