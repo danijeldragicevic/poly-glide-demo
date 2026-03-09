@@ -13,9 +13,9 @@ vi.mock("polyapi", () => ({
 
 describe("getCityName (integration test)", () => {
   it("connects to BigDataCloud API and fetches city and country name", async () => {
-    const result = await getCityName(40.7128, -74.006);
+    const result = await getCityName(40.7143, -74.0060);
     
-    expect(result.latitude.toFixed(4)).toBe("40.7128");
+    expect(result.latitude.toFixed(4)).toBe("40.7143");
     expect(result.longitude.toFixed(4)).toBe("-74.0060");
     expect(result.city).toBeTruthy();
     expect(result.countryName).toBeTruthy();

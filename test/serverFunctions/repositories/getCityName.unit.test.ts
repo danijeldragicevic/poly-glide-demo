@@ -23,18 +23,18 @@ describe("getCityName (unit tests)", () => {
             json: async () => mockResponse,
         });
 
-        const result = await getCityName(40.7128, -74.006);
+        const result = await getCityName(40.7143, -74.0060);
         expect(result).toEqual({
-            latitude: 40.7128,
-            longitude: -74.006,
+            latitude: 40.7143,
+            longitude: -74.0060,
             city: "New York",
             countryName: "United States",
         });
     });
 
     it("should throw an error for invalid latitude", async () => {
-        await expect(getCityName(100, -74.006)).rejects.toBeInstanceOf(Error);
-        await expect(getCityName(100, -74.006)).rejects.toMatchObject({
+        await expect(getCityName(100, -74.0060)).rejects.toBeInstanceOf(Error);
+        await expect(getCityName(100, -74.0060)).rejects.toMatchObject({
             message: "Invalid latitude. Expected a number between -90 and 90.",
             status: 400,
             statusText: "Bad Request",
@@ -42,8 +42,8 @@ describe("getCityName (unit tests)", () => {
     });
 
     it("should throw an error for invalid longitude", async () => {
-        await expect(getCityName(40.7128, -190)).rejects.toBeInstanceOf(Error);
-        await expect(getCityName(40.7128, -190)).rejects.toMatchObject({
+        await expect(getCityName(40.7143, -190)).rejects.toBeInstanceOf(Error);
+        await expect(getCityName(40.7143, -190)).rejects.toMatchObject({
             message: "Invalid longitude. Expected a number between -180 and 180.",
             status: 400,
             statusText: "Bad Request",
@@ -53,8 +53,8 @@ describe("getCityName (unit tests)", () => {
     it("should throw an error when API response is missing", async () => {
         global.fetch = vi.fn().mockResolvedValue(null as any);
 
-        await expect(getCityName(40.7128, -74.006)).rejects.toBeInstanceOf(Error);
-        await expect(getCityName(40.7128, -74.006)).rejects.toMatchObject({
+        await expect(getCityName(40.7143, -74.0060)).rejects.toBeInstanceOf(Error);
+        await expect(getCityName(40.7143, -74.0060)).rejects.toMatchObject({
             message: "BigDataCloud API response is missing.",
             status: 502,
             statusText: "Bad Gateway",
@@ -63,6 +63,6 @@ describe("getCityName (unit tests)", () => {
 
     it("should throw an error when API call fails", async () => {
         vi.mocked(global.fetch).mockRejectedValue(new Error("Network error"));
-        await expect(getCityName(40.7128, -74.006)).rejects.toThrow("Network error");
+        await expect(getCityName(40.7143, -74.0060)).rejects.toThrow("Network error");
     });
 });

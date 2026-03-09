@@ -35,10 +35,10 @@ describe("getDailyForecast (unit tests)", () => {
 			countryName: "United States",
 		});
 
-		const result = await getDailyForecast({ latitude: 40.7128, longitude: -74.006 }, {}, {});
+		const result = await getDailyForecast({ latitude: 40.7143, longitude: -74.0060 }, {}, {});
 
-		expect(getWeatherDataMock).toHaveBeenCalledWith(40.7128, -74.006);
-		expect(getCityNameMock).toHaveBeenCalledWith(40.7128, -74.006);
+		expect(getWeatherDataMock).toHaveBeenCalledWith(40.7143, -74.0060);
+		expect(getCityNameMock).toHaveBeenCalledWith(40.7143, -74.0060);
 		expect(result).toEqual({
 			city: "New York",
 			country: "United States",
@@ -66,7 +66,7 @@ describe("getDailyForecast (unit tests)", () => {
 			countryName: "United States",
 		});
 
-		await expect(getDailyForecast({ latitude: 40.7128, longitude: -74.006 }, {}, {})).rejects.toThrow("Weather data error");
+		await expect(getDailyForecast({ latitude: 40.7143, longitude: -74.0060 }, {}, {})).rejects.toThrow("Weather data error");
 	});
 
 	it("should propagate errors from getCityName", async () => {
@@ -80,7 +80,7 @@ describe("getDailyForecast (unit tests)", () => {
 		});
 		getCityNameMock.mockRejectedValue(new Error("City name error"));
 
-		await expect(getDailyForecast({ latitude: 40.7128, longitude: -74.006 }, {}, {})).rejects.toThrow("City name error");
+		await expect(getDailyForecast({ latitude: 40.7143, longitude: -74.0060 }, {}, {})).rejects.toThrow("City name error");
 	});
 });
 

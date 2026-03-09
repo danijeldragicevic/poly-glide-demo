@@ -2,29 +2,9 @@
 [![Deploy](https://github.com/danijeldragicevic/poly-glide-demo/actions/workflows/deploy.yml/badge.svg?branch=main)](https://github.com/danijeldragicevic/poly-glide-demo/actions/workflows/deploy.yml)
 [![Health check](https://github.com/danijeldragicevic/poly-glide-demo/actions/workflows/health-check.yml/badge.svg?branch=main)](https://github.com/danijeldragicevic/poly-glide-demo/actions/workflows/health-check.yml)
 
-## Tech stack
-- TypeScript
-- PolyAPI SDK
-- Vitest
-- Husky
-
-## Prerequisites
-- Node.js 18+ (Node 20+ recommended)
-- npm
-
-## Installation
-```bash
-npm install
-```
-
-## Available scripts
-- `npm test` — run Vitest test suite
-- `npm run test:watch` — run tests in watch mode
-
-## What this integration does
 This project implements a **daily weather forecast integration** built on the [PolyAPI](polyapi.io) platform. It exposes an HTTP webhook that accepts geographic coordinates and returns an hourly weather forecast for that location.
 
-### Flow
+## Data flow
 ```
 POST /webhook  →  validateForecastPayload (security)
                        ↓
@@ -38,66 +18,70 @@ POST /webhook  →  validateForecastPayload (security)
 3. The **service function** (`getDailyForecast`) fetches city information and hourly weather data in parallel.
 4. A structured forecast object is returned.
 
-## Example usage
-### cURL request
-```bash
-curl -X POST https://na1.polyapi.io/webhook/devdan/demo/daily-forecast \
-  -H "Content-Type: application/json" \
-  -d '{
-    "latitude": 52.52,
-    "longitude": 13.41
-  }'
-```
-> Replace the host (`na1.polyapi.io`) and slug (`devdan`) with the values from your own PolyAPI environment if different.
+## Tech stack
+- TypeScript
+- PolyAPI SDK
+- Vitest
+- Husky
 
-## Example output
+
+## Getting started
+### Prerequisites
+- Node.js 18+ (Node 20+ recommended)
+- npm
+
+### Installation
+1. Clone the repository and navigate to the project directory:
+   ```bash
+   git clone https://github.com/danijeldragicevic/poly-glide-demo.git
+   cd poly-glide-demo
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Run all test
+   ```bash
+   npm test
+   ```
+
+## Example usage
+There is a public webhook registered at this endpoint:
+```bash
+curl -X POST 'https://f9d5a80d.na1.polyapi.io/webhooks/devdan/daily-forecast' \
+  --header 'Content-Type: application/json' \
+  --body '{
+    "latitude": 40.7143,
+    "longitude": -74.0060
+}'
+```
+> Replace the host (`f9d5a80d.na1.polyapi.io`) and slug (`devdan`) with the values from your own PolyAPI environment if different.
 
 The webhook responds with:
 ```json
 {
-  "city": "Berlin",
-  "country": "Germany",
-  "forecast": [
-    {
-      "time": "2026-03-06T00:00",
-      "temperature": 3.8,
-      "humidity": 82,
-      "rain": 0.0
-    },
-    {
-      "time": "2026-03-06T01:00",
-      "temperature": 3.5,
-      "humidity": 84,
-      "rain": 0.1
-    },
-    {
-      "time": "2026-03-06T02:00",
-      "temperature": 3.2,
-      "humidity": 85,
-      "rain": 0.0
-    }
-  ]
+    "city": "New York City",
+    "country": "United States of America (the)",
+    "forecast": [
+        {
+            "time": "2026-03-09T00:00",
+            "temperature": 16.4,
+            "humidity": 46,
+            "rain": 0
+        },
+        {
+            "time": "2026-03-09T01:00",
+            "temperature": 15.5,
+            "humidity": 40,
+            "rain": 0
+        }
+    ]
 }
 ```
 
-| Field | Type | Description |
-|---|---|---|
-| `city` | `string` | City name resolved from coordinates |
-| `country` | `string` | Country name resolved from coordinates |
-| `forecast[].time` | `string` | ISO 8601 datetime (hourly) |
-| `forecast[].temperature` | `number` | Air temperature at 2 m (°C) |
-| `forecast[].humidity` | `number` | Relative humidity at 2 m (%) |
-| `forecast[].rain` | `number` | Rainfall (mm) |
-
-
 ## Validation errors (400 Bad Request)
 Thrown by `validateForecastPayload` when the request body is invalid:
-
-| Condition | Message |
-|---|---|
-| `latitude` is not a number, or outside `[-90, 90]` | `"Invalid latitude. Expected a number between -90 and 90."` |
-| `longitude` is not a number, or outside `[-180, 180]` | `"Invalid longitude. Expected a number between -180 and 180."` |
-
 ```json
 {
   "message": "Invalid latitude. Expected a number between -90 and 90.",
@@ -108,12 +92,21 @@ Thrown by `validateForecastPayload` when the request body is invalid:
 
 ## Upstream errors (502 Bad Gateway)
 Thrown when an external API does not respond:
+```json
+{
+  "message": "BigDataCloud API response is missing.",
+  "statusCode": 502,
+  "statusText": "Bad Gateway"
+}
+```
 
-| Source | Message |
-|---|---|
-| BigDataCloud (city lookup) | `"BigDataCloud API response is missing."` |
-| Open-Meteo (weather data) | `"Open-Meteo API response is missing."` |
-
+```json
+{
+  "message": "Open-Meteo API response is missing.",
+  "statusCode": 502,
+  "statusText": "Bad Gateway"
+}
+```
 
 ## License
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)

@@ -13,12 +13,12 @@ vi.mock("polyapi", () => ({
 
 describe("getWeatherData (integration test)", () => {
   it("connects to Open-Meteo API and fetches weather data", async () => {
-    const result = await getWeatherData(44.00299, 18.010437);
-    const receivedLatitude = result.latitude.toFixed(5);
-    const receivedLongitude = result.longitude.toFixed(5);
+    const result = await getWeatherData(40.7143, -74.0060);
+    const receivedLatitude = result.latitude.toFixed(4);
+    const receivedLongitude = result.longitude.toFixed(4);
     
-    expect(receivedLatitude).toBe("44.00299");
-    expect(receivedLongitude).toBe("18.01044");
+    expect(receivedLatitude).toBe("40.7143");
+    expect(receivedLongitude).toBe("-74.0060");
     expect(result.data).toHaveProperty("time");
     expect(result.data).toHaveProperty("temperature");
     expect(result.data).toHaveProperty("humidity");
