@@ -8,7 +8,7 @@ This project implements a **daily weather forecast integration** built on the [P
 ```
 POST /webhook  →  validateWebhookApiKey (security)
                        ↓
-               validateForecastPayload (security)
+               validateWebhookPayload (security)
                        ↓
                getDailyForecast (service)
                   ↙           ↘
@@ -17,7 +17,7 @@ POST /webhook  →  validateWebhookApiKey (security)
 ```
 1. A client POSTs `latitude` and `longitude` to the webhook endpoint with an `x-api-key` header.
 2. The **security function** (`validateWebhookApiKey`) validates the API key from the request headers before anything else.
-3. The **security function** (`validateForecastPayload`) validates the coordinates before the event is processed.
+3. The **security function** (`validateWebhookPayload`) validates the coordinates before the event is processed.
 4. The **service function** (`getDailyForecast`) fetches city information and hourly weather data in parallel.
 5. A structured forecast object is returned.
 
@@ -100,7 +100,7 @@ Thrown by `validateWebhookApiKey` when the `x-api-key` header is missing or inva
 ```
 
 ## Validation errors
-Thrown by `validateForecastPayload` when the request body is invalid:
+Thrown by `validateWebhookPayload` when the request body is invalid:
 ```json
 {
     "statusCode": 500,
