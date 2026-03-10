@@ -1,4 +1,3 @@
-// Poly deployed @ 2026-03-06T14:49:02.816Z - demo.getWeatherData - https://na1.polyapi.io/canopy/polyui/collections/server-functions/60fb7849-6da5-4fa2-aaeb-f790e76b6e8f - 01f7dfcf
 import { PolyClientFunction, vari } from "polyapi";
 
 // PolyAPI configuratoin

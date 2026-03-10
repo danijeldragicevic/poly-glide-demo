@@ -1,4 +1,3 @@
-// Poly deployed @ 2026-03-06T14:46:53.171Z - demo.getCityName - https://na1.polyapi.io/canopy/polyui/collections/server-functions/9a9664b6-e5fc-4feb-bc70-4e62cdb74eae - 2fdbe207
 import { PolyClientFunction, vari } from "polyapi";
 
 // PolyAPI configuratoin
