@@ -1,7 +1,6 @@
 # PolyAPI Demo
 [![Deploy](https://github.com/danijeldragicevic/poly-glide-demo/actions/workflows/deploy.yml/badge.svg?branch=main)](https://github.com/danijeldragicevic/poly-glide-demo/actions/workflows/deploy.yml)
 [![Health check](https://github.com/danijeldragicevic/poly-glide-demo/actions/workflows/health-check.yml/badge.svg?branch=main)](https://github.com/danijeldragicevic/poly-glide-demo/actions/workflows/health-check.yml)
-[![PR Checks](https://github.com/danijeldragicevic/poly-glide-demo/actions/workflows/pr-checks.yml/badge.svg)](https://github.com/danijeldragicevic/poly-glide-demo/actions/workflows/pr-checks.yml)
 
 This project implements a **daily weather forecast integration** built on the [PolyAPI](polyapi.io) platform. It exposes an HTTP webhook that accepts geographic coordinates and returns an hourly weather forecast for that location.
 
