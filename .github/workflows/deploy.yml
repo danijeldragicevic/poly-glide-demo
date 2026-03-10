@@ -49,3 +49,9 @@ jobs:
         with:
           poly_api_key: ${{ secrets.POLY_API_KEY_PROD }}
           poly_api_base_url: ${{ secrets.POLY_API_BASE_URL_PROD }}
+
+      - name: Setup Trigger
+        run: npm run setup:trigger
+        env:
+          POLY_INSTANCE_URL: ${{ secrets.POLY_API_BASE_URL_PROD }}
+          POLY_API_KEY: ${{ secrets.POLY_API_KEY_PROD }}

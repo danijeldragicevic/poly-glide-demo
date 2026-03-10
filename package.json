@@ -8,7 +8,8 @@
   "scripts": {
     "test": "vitest",
     "prepare": "husky",
-    "test:watch": "vitest --watch"
+    "test:watch": "vitest --watch",
+    "setup:trigger": "ts-node src/triggers/dailyForecastTrigger.ts"
   },
   "dependencies": {
     "openmeteo": "^1.2.3",
