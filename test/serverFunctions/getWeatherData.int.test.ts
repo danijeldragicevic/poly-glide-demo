@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from "vitest";
-import { getWeatherData } from "../../../src/serverFunctions/respositories/getWeatherData";
+import { getWeatherData } from "../../../src/serverFunctions/getWeatherData";
 
 vi.mock("polyapi", () => ({
   vari: {

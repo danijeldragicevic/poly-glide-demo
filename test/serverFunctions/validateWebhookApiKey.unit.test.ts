@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from "vitest";
-import { validateWebhookApiKey } from "../../../src/serverFunctions/security/validateWebhookApiKey";
+import { validateWebhookApiKey } from "../../src/serverFunctions/validateWebhookApiKey";
 
 vi.mock("polyapi", () => ({
     vari: {
