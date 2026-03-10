@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { validateWebhookPayload } from "../../../src/serverFunctions/security/validateWebhookPayload";
+import { validateWebhookPayload } from "../../src/serverFunctions/validateWebhookPayload";
 
 describe("validateWebhookPayload (unit tests)", () => {
     it("should return true for a valid payload", async () => {

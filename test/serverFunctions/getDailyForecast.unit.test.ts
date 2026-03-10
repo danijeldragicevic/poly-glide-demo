@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { getDailyForecast } from "../../../src/serverFunctions/services/getDailyForecast";
+import { getDailyForecast } from "../../src/serverFunctions/getDailyForecast";
 
 const { getWeatherDataMock, getCityNameMock } = vi.hoisted(() => ({
 	getWeatherDataMock: vi.fn(),
