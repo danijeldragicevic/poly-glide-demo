@@ -7,14 +7,15 @@ This project implements a **daily weather forecast integration** built on the [P
 
 ## Data flow
 ```
-POST /webhook  →  validateWebhookApiKey (security)
+POST /webhook  →  validateWebhookApiKey (server function)
                        ↓
-               validateWebhookPayload (security)
+               validateWebhookPayload (server function)
                        ↓
-               getDailyForecast (service)
+               getDailyForecast (server function)
                   ↙           ↘
         getCityName        getWeatherData
-     (BigDataCloud)        (Open-Meteo)
+      (client function)   (client function)
+       (BigDataCloud)        (Open-Meteo)
 ```
 1. A client POSTs `latitude` and `longitude` to the webhook endpoint with an `x-api-key` header.
 2. The **security function** (`validateWebhookApiKey`) validates the API key from the request headers before anything else.
