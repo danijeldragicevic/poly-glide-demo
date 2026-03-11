@@ -40,10 +40,6 @@ const MOCK_UPDATED_TRIGGER = {
     enabled: triggerConfig.enabled,
 };
 
-// ---------------------------------------------------------------------------
-// Helper: build a fetch mock that handles each endpoint in order
-// ---------------------------------------------------------------------------
-
 function mockFetchSequence(...responses: object[]) {
     let callIndex = 0;
     vi.stubGlobal("fetch", vi.fn(async () => {
@@ -54,19 +50,6 @@ function mockFetchSequence(...responses: object[]) {
         };
     }));
 }
-
-function mockFetchFailure(status: number, statusText: string, body: string) {
-    vi.stubGlobal("fetch", vi.fn(async () => ({
-        ok: false,
-        status,
-        statusText,
-        text: async () => body,
-    })));
-}
-
-// ---------------------------------------------------------------------------
-// Tests
-// ---------------------------------------------------------------------------
 
 describe("createDailyForecastTrigger (unit tests)", () => {
     beforeEach(() => {
