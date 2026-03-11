@@ -1,0 +1,13 @@
+{
+    "name": "dailyForecastTrigger",
+    "source": {
+        "webhookContext": "demo",
+        "webhookName": "dailyForecastWebhook"
+    },
+    "destination": {
+        "serverFunctionContext": "demo",
+        "serverFunctionName": "getDailyForecast"
+    },
+    "waitForResponse": false,
+    "enabled": false
+}
