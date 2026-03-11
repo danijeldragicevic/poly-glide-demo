@@ -8,6 +8,6 @@
         "serverFunctionContext": "demo",
         "serverFunctionName": "getDailyForecast"
     },
-    "waitForResponse": false,
-    "enabled": false
+    "waitForResponse": true,
+    "enabled": true
 }
