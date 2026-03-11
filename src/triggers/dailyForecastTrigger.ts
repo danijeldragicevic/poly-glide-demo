@@ -42,10 +42,12 @@ export async function createDailyForecastTrigger() {
 }
 
 // Runs automatically when this file is executed directly (e.g. ts-node or npm run setup:trigger)
-createDailyForecastTrigger().catch((error: Error) => {
-    console.error("Failed to create trigger:", error.message ?? error);
-    process.exit(1);
-});
+if (require.main === module) {
+    createDailyForecastTrigger().catch((error: Error) => {
+        console.error("Failed to create trigger:", error.message ?? error);
+        process.exit(1);
+    });
+}
 
 // ---------------------------------------------------------------------------
 // HTTP helpers
