@@ -103,7 +103,9 @@ async function patchJson(path: string, body: object) {
 async function findWebhook() {
     const webhooks = await getJson("/webhooks");
     const webhook = webhooks.find(
-        (w: any) => w.context === triggerConfig.source.webhookContext && w.name === triggerConfig.source.webhookName,
+        (wh: any) =>
+            wh.context === triggerConfig.source.webhookContext &&
+            wh.name === triggerConfig.source.webhookName,
     );
     if (!webhook) {
         throw new Error(
