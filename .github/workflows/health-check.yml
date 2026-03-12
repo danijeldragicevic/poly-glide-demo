@@ -2,8 +2,8 @@ name: Health Check
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '0 */6 * * *' # Run every 6 hours
+  # schedule:
+  #   - cron: '0 */1 * * *' # Run every 1 hour
 
 jobs:
   run-tests:
